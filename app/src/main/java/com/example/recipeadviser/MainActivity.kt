@@ -2,7 +2,6 @@ package com.example.recipeadviser
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,13 +32,5 @@ class MainActivity : AppCompatActivity() {
             // Update the cached copy of the data in the adapter.
             data?.let { adapter.setRecipes(it) }
         })
-
-
     }
-
-   /* override fun onCellClickListener(name: String) {
-        dataViewModel.remove(name)
-        Toast.makeText(getBaseContext(),name, Toast.LENGTH_SHORT).show()
-    }*/
-
 }
