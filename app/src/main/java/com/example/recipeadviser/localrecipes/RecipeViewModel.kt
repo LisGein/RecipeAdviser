@@ -28,4 +28,8 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
     fun insert(Data: RecipeData) = viewModelScope.launch(Dispatchers.IO) {
         repository.insert(Data)
     }
+
+    fun remove(recipe_id: String) = viewModelScope.launch(Dispatchers.IO) {
+        repository.remove(recipe_id)
+    }
 }

@@ -11,4 +11,8 @@ class RecipeRepository(private val dataDao: RecipeDataDao) {
     suspend fun insert(Data: RecipeData) {
         dataDao.insert(Data)
     }
+
+    suspend fun remove(recipe_id: String) {
+        dataDao.remove(recipe_id)
+    }
 }

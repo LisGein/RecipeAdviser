@@ -21,7 +21,7 @@
             android:background="@android:color/background_light" />
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/removeBtn"
             android:layout_width="69dp"
             android:layout_height="69dp"
             android:layout_weight="0.09"

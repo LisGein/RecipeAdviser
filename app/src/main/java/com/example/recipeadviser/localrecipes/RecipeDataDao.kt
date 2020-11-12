@@ -17,4 +17,7 @@ interface RecipeDataDao {
 
     @Query("DELETE FROM essential_recipe_data_table")
     suspend fun deleteAll()
+
+    @Query("DELETE FROM essential_recipe_data_table WHERE id = :recipe_id")
+    suspend fun remove(recipe_id: String)
 }
