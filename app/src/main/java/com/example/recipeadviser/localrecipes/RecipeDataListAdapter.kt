@@ -9,10 +9,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeadviser.R
 import com.example.recipeadviser.RemoveItemListener
+import com.example.recipeadviser.SelectItemListener
 
 class RecipeDataListAdapter internal constructor(
         context: Context,
-        private val cellClickListener: RemoveItemListener
+        private val cellClickListener: RemoveItemListener,
+        private val selectItemListener: SelectItemListener
 ) : RecyclerView.Adapter<RecipeDataListAdapter.RecipeViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
@@ -32,7 +34,10 @@ class RecipeDataListAdapter internal constructor(
         val current = data[position]
         holder.recipeItemView.text = current.recipe_name
         holder.removeBtn.setOnClickListener {
-            cellClickListener.onCellClickListener(current.recipe_id)
+            cellClickListener.onClickListener(current.recipe_id)
+        }
+        holder.recipeItemView.setOnClickListener{
+            selectItemListener.onClickListener(current.recipe_id)
         }
     }
 

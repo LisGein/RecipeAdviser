@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var dataViewModel: RecipeViewModel
 
     private lateinit var removeItemListener: RemoveItemListener
+    private lateinit var selectItemListener: SelectItemListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,8 +26,9 @@ class MainActivity : AppCompatActivity() {
 
         dataViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(this.application)).get(RecipeViewModel::class.java)
         removeItemListener = RemoveItemListener(dataViewModel)
+        selectItemListener = SelectItemListener(dataViewModel, this)
 
-        val adapter = RecipeDataListAdapter(this, removeItemListener)
+        val adapter = RecipeDataListAdapter(this, removeItemListener, selectItemListener)
         recyclerView.adapter = adapter
         dataViewModel.allData.observe(this, Observer { data ->
             // Update the cached copy of the data in the adapter.

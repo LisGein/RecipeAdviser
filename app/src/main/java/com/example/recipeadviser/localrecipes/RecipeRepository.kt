@@ -15,4 +15,9 @@ class RecipeRepository(private val dataDao: RecipeDataDao) {
     suspend fun remove(recipe_id: String) {
         dataDao.remove(recipe_id)
     }
+
+    suspend fun get_recipe_name(recipe_id: String) : String {
+        val data = dataDao.get_recipe_name(recipe_id)
+        return data.get(0).recipe_name
+    }
 }

@@ -4,8 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class RecipeViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -31,5 +30,12 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
 
     fun remove(recipe_id: String) = viewModelScope.launch(Dispatchers.IO) {
         repository.remove(recipe_id)
+    }
+
+    fun get_recipe_name(recipe_id: String) : String {
+        val name = runBlocking{
+             repository.get_recipe_name(recipe_id)
+        }
+        return name
     }
 }
