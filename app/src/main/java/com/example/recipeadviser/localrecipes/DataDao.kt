@@ -35,6 +35,12 @@ interface DataDao {
     @Query("SELECT * FROM ingredient ORDER BY id ASC")
     fun get_sorted_ingredients(): LiveData<List<IngredientData>>
 
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insert_ingredient(IngredientData: IngredientData)
+
+    @Query("DELETE FROM ingredient WHERE id = :ingredient_id")
+    suspend fun remove_ingredient(ingredient_id: String)
+
     @Query("SELECT * FROM recipe_ingredient ORDER BY id ASC")
     fun get_sorted_recipe_to_ingredients(): LiveData<List<RecipeToIngredientData>>
 
@@ -44,10 +50,4 @@ interface DataDao {
     @Query("DELETE FROM recipe_ingredient WHERE id = :id")
     suspend fun remove_recipe_to_ingredients(id: String)
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert_ingredient(IngredientData: IngredientData)
-
-    @Query("DELETE FROM ingredient WHERE id = :ingredient_id")
-    suspend fun remove_ingredient(ingredient_id: String)
-    
 }

@@ -79,19 +79,16 @@ abstract class RecipeRoomDatabase : RoomDatabase() {
                 context: Context,
                 scope: CoroutineScope
         ): RecipeRoomDatabase {
-            // if the INSTANCE is not null, then return it,
-            // if it is, then create the database
             return INSTANCE
                     ?: synchronized(this) {
                         val instance = Room.databaseBuilder(
                                 context.applicationContext,
                                 RecipeRoomDatabase::class.java,
-                                "recipe_essential_database"
+                                "recipe_database"
                         )
                                 .addCallback(DataDatabaseCallback(scope))
                                 .build()
                         INSTANCE = instance
-                        // return instance
                         instance
                     }
         }

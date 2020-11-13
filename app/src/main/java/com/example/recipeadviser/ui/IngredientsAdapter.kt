@@ -4,14 +4,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeadviser.R
 import com.example.recipeadviser.SerializableIngredients
-import com.example.recipeadviser.localrecipes.essential.RecipeData
-import com.example.recipeadviser.localrecipes.ingredients.IngredientData
-import kotlinx.coroutines.runBlocking
 
 class IngredientsAdapter internal constructor(
         context: Context

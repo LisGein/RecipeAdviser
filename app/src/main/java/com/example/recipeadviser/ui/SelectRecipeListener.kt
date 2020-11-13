@@ -1,8 +1,6 @@
 package com.example.recipeadviser.ui
 
 import android.content.Intent
-import android.os.Parcel
-import android.os.Parcelable
 import com.example.recipeadviser.MainActivity
 import com.example.recipeadviser.SerializableIngredients
 import com.example.recipeadviser.localrecipes.essential.RecipeViewModel
