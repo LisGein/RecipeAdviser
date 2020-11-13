@@ -8,23 +8,23 @@ class RecipeRepository(private val dataDao: DataDao) {
 
     // Room executes all queries on a separate thread.
     // Observed LiveData will notify the observer when the data has changed.
-    val allRecipes: LiveData<List<RecipeData>> = dataDao.get_sorted_recipes()
+    val allRecipes: LiveData<List<RecipeData>> = dataDao.getSortedRecipes()
 
     suspend fun insert(Data: RecipeData) {
-        dataDao.insert_recipe(Data)
+        dataDao.insertRecipe(Data)
     }
 
     suspend fun remove(recipe_id: String) {
-        dataDao.remove_recipe(recipe_id)
+        dataDao.removeRecipe(recipe_id)
     }
 
-    suspend fun get_recipe_data(recipe_id: String) : RecipeData {
-        val data = dataDao.get_recipe_data(recipe_id)
+    suspend fun getRecipeData(recipe_id: String) : RecipeData {
+        val data = dataDao.getRecipeData(recipe_id)
         return data.get(0)
     }
 
-    suspend fun get_ingredients(recipe_id: String) : List<IngredientData> {
-        val data = dataDao.get_ingredients_for_recipe(recipe_id)
+    suspend fun getIngredients(recipe_id: String) : List<IngredientData> {
+        val data = dataDao.getIngredientsForRecipe(recipe_id)
         return data
     }
 }

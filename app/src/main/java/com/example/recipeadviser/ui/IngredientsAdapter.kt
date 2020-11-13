@@ -17,8 +17,8 @@ class IngredientsAdapter internal constructor(
     private var data = arrayListOf<SerializableIngredients>()  // Cached copy of recipes
 
     inner class IngredientsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val ingr_name: TextView = itemView.findViewById(R.id.ingr_name)
-        val ingr_amount: TextView = itemView.findViewById(R.id.ingr_amount)
+        val ingrName: TextView = itemView.findViewById(R.id.ingr_name)
+        val ingrAmount: TextView = itemView.findViewById(R.id.ingr_amount)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IngredientsViewHolder {
@@ -28,8 +28,8 @@ class IngredientsAdapter internal constructor(
 
     override fun onBindViewHolder(holder: IngredientsViewHolder, position: Int) {
         val current = data[position]
-        holder.ingr_name.text = current.name
-        holder.ingr_amount.text = current.amount
+        holder.ingrName.text = current.name
+        holder.ingrAmount.text = current.amount
 
     }
 

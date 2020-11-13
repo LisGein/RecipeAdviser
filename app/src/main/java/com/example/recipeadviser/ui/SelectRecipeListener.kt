@@ -14,10 +14,10 @@ class SelectItemListener constructor(
     {
         val intent = Intent(main_activity, CurrentRecipeActivity::class.java)
 
-        val recipe_data = dataViewModel.get_recipe_data(recipe_id)
-        intent.putExtra("name", recipe_data.recipe_name)
+        val recipeData = dataViewModel.getRecipeData(recipe_id)
+        intent.putExtra("name", recipeData.recipeName)
 
-        val ingredients = dataViewModel.get_ingredients(recipe_id)
+        val ingredients = dataViewModel.getIngredients(recipe_id)
         var ingrs : ArrayList<SerializableIngredients> = arrayListOf()
         for (i in ingredients)
         {

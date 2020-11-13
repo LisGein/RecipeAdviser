@@ -30,42 +30,42 @@ abstract class RecipeRoomDatabase : RoomDatabase() {
                     //dao.deleteAll()
 
                     var recipe = RecipeData("0", "Chicken")
-                    dao.insert_recipe(recipe)
+                    dao.insertRecipe(recipe)
 
                     recipe = RecipeData("1", "Bowl")
-                    dao.insert_recipe(recipe)
+                    dao.insertRecipe(recipe)
 
                     recipe = RecipeData("2", "Fish")
-                    dao.insert_recipe(recipe)
+                    dao.insertRecipe(recipe)
 
-                    dao.insert_ingredient(IngredientData("1", "Milk", "100 ml", "1"))
-                    dao.insert_recipe_to_ingredients(RecipeToIngredientData("0", "0", "1"))
+                    dao.insertIngredient(IngredientData("1", "Milk", "100 ml", "1"))
+                    dao.insertRecipeToIngredients(RecipeToIngredientData("0", "0", "1"))
 
-                    dao.insert_ingredient(IngredientData("2", "Bread", "100 ml", "2"))
-                    dao.insert_recipe_to_ingredients(RecipeToIngredientData("1", "0", "2"))
+                    dao.insertIngredient(IngredientData("2", "Bread", "100 ml", "2"))
+                    dao.insertRecipeToIngredients(RecipeToIngredientData("1", "0", "2"))
 
-                    dao.insert_ingredient(IngredientData("3", "Soy", "100 ml", "3"))
-                    dao.insert_recipe_to_ingredients(RecipeToIngredientData("2", "0", "3"))
+                    dao.insertIngredient(IngredientData("3", "Soy", "100 ml", "3"))
+                    dao.insertRecipeToIngredients(RecipeToIngredientData("2", "0", "3"))
 
-                    dao.insert_ingredient(IngredientData("4", "Meat", "100 ml", "4"))
-                    dao.insert_recipe_to_ingredients(RecipeToIngredientData("3", "0", "4"))
-
-
-                    dao.insert_ingredient(IngredientData("5", "Milk", "100 ml", "1"))
-                    dao.insert_recipe_to_ingredients(RecipeToIngredientData("4", "1", "5"))
-
-                    dao.insert_ingredient(IngredientData("6", "Milk", "100 ml", "1"))
-                    dao.insert_recipe_to_ingredients(RecipeToIngredientData("5", "1", "6"))
-
-                    dao.insert_ingredient(IngredientData("7", "Milk", "100 ml", "1"))
-                    dao.insert_recipe_to_ingredients(RecipeToIngredientData("6", "1", "7"))
+                    dao.insertIngredient(IngredientData("4", "Meat", "100 ml", "4"))
+                    dao.insertRecipeToIngredients(RecipeToIngredientData("3", "0", "4"))
 
 
-                    dao.insert_ingredient(IngredientData("8", "Milk", "100 ml", "1"))
-                    dao.insert_recipe_to_ingredients(RecipeToIngredientData("7", "2", "8"))
+                    dao.insertIngredient(IngredientData("5", "Milk", "100 ml", "1"))
+                    dao.insertRecipeToIngredients(RecipeToIngredientData("4", "1", "5"))
 
-                    dao.insert_ingredient(IngredientData("9", "Milk", "100 ml", "1"))
-                    dao.insert_recipe_to_ingredients(RecipeToIngredientData("8", "2", "9"))
+                    dao.insertIngredient(IngredientData("6", "Milk", "100 ml", "1"))
+                    dao.insertRecipeToIngredients(RecipeToIngredientData("5", "1", "6"))
+
+                    dao.insertIngredient(IngredientData("7", "Milk", "100 ml", "1"))
+                    dao.insertRecipeToIngredients(RecipeToIngredientData("6", "1", "7"))
+
+
+                    dao.insertIngredient(IngredientData("8", "Milk", "100 ml", "1"))
+                    dao.insertRecipeToIngredients(RecipeToIngredientData("7", "2", "8"))
+
+                    dao.insertIngredient(IngredientData("9", "Milk", "100 ml", "1"))
+                    dao.insertRecipeToIngredients(RecipeToIngredientData("8", "2", "9"))
                 }
             }
         }

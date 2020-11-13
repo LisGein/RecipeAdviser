@@ -17,14 +17,14 @@ class CurrentRecipeActivity : AppCompatActivity() {
         textView = findViewById<TextView>(R.id.name_of_recipe)
         textView.setText(intent.getStringExtra("name"))
 
-        val recyclerView2 = findViewById<RecyclerView>(R.id.recyclerview_ingredients)
-        recyclerView2.layoutManager = LinearLayoutManager(this)
-        val adapter2 = IngredientsAdapter(this)
-        recyclerView2.adapter = adapter2
+        val ingrRecyclerView = findViewById<RecyclerView>(R.id.recyclerview_ingredients)
+        ingrRecyclerView.layoutManager = LinearLayoutManager(this)
+        val adapter = IngredientsAdapter(this)
+        ingrRecyclerView.adapter = adapter
 
         val ings = intent.getParcelableArrayListExtra<SerializableIngredients>("ingredients")
         if (ings != null) {
-            adapter2.setIngredients(ings)
+            adapter.setIngredients(ings)
         }
     }
 }

@@ -26,24 +26,24 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
     /**
      * Launching a new coroutine to insert the data in a non-blocking way
      */
-    fun insert(Data: RecipeData) = viewModelScope.launch(Dispatchers.IO) {
-        repository.insert(Data)
+    fun insert(data: RecipeData) = viewModelScope.launch(Dispatchers.IO) {
+        repository.insert(data)
     }
 
-    fun remove(recipe_id: String) = viewModelScope.launch(Dispatchers.IO) {
-        repository.remove(recipe_id)
+    fun remove(recipeId: String) = viewModelScope.launch(Dispatchers.IO) {
+        repository.remove(recipeId)
     }
 
-    fun get_recipe_data(recipe_id: String) : RecipeData {
+    fun getRecipeData(recipeId: String) : RecipeData {
         val data = runBlocking{
-             repository.get_recipe_data(recipe_id)
+             repository.getRecipeData(recipeId)
         }
         return data
     }
 
-    fun get_ingredients(recipe_id: String) : List<IngredientData> {
+    fun getIngredients(recipeId: String) : List<IngredientData> {
         val data = runBlocking{
-            repository.get_ingredients(recipe_id)
+            repository.getIngredients(recipeId)
         }
         return data
     }

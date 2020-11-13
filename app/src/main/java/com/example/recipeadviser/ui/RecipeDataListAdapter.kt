@@ -31,12 +31,12 @@ class RecipeDataListAdapter internal constructor(
 
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
         val current = data[position]
-        holder.recipeItemView.text = current.recipe_name
+        holder.recipeItemView.text = current.recipeName
         holder.removeBtn.setOnClickListener {
-            cellClickListener.onClickListener(current.recipe_id)
+            cellClickListener.onClickListener(current.recipeId)
         }
         holder.recipeItemView.setOnClickListener{
-            selectItemListener.onClickListener(current.recipe_id)
+            selectItemListener.onClickListener(current.recipeId)
         }
     }
 

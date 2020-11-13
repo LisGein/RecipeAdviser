@@ -26,12 +26,10 @@ class MainActivity : AppCompatActivity() {
         removeItemListener = RemoveItemListener(dataViewModel)
         selectItemListener = SelectItemListener(dataViewModel, this)
 
-
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
         recyclerView.layoutManager = LinearLayoutManager(this)
         val adapter = RecipeDataListAdapter(this, removeItemListener, selectItemListener)
         recyclerView.adapter = adapter
-
 
         dataViewModel.allData.observe(this){ data ->
             // Update the cached copy of the data in the adapter.

@@ -15,39 +15,39 @@ interface DataDao {
     @Query("SELECT ingredient.* FROM ingredient \n" +
             "INNER JOIN recipe_ingredient ON ingredient.id = recipe_ingredient.ingredient_id\n" +
             "WHERE recipe_ingredient.recipe_id=:recipe_id")
-    suspend fun get_ingredients_for_recipe(recipe_id: String): List<IngredientData>
+    suspend fun getIngredientsForRecipe(recipe_id: String): List<IngredientData>
 
     @Query("SELECT * FROM recipe ORDER BY id ASC")
-    fun get_sorted_recipes(): LiveData<List<RecipeData>>
+    fun getSortedRecipes(): LiveData<List<RecipeData>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert_recipe(RecipeData: RecipeData)
+    suspend fun insertRecipe(RecipeData: RecipeData)
 
     @Query("DELETE FROM recipe")
-    suspend fun delete_all_recipes()
+    suspend fun deleteAllRecipes()
 
-    @Query("DELETE FROM recipe WHERE id = :recipe_id")
-    suspend fun remove_recipe(recipe_id: String)
+    @Query("DELETE FROM recipe WHERE id = :recipeId")
+    suspend fun removeRecipe(recipeId: String)
 
-    @Query("SELECT * FROM recipe WHERE id = :recipe_id")
-    suspend fun get_recipe_data(recipe_id: String): List<RecipeData>
+    @Query("SELECT * FROM recipe WHERE id = :recipeId")
+    suspend fun getRecipeData(recipeId: String): List<RecipeData>
 
     @Query("SELECT * FROM ingredient ORDER BY id ASC")
-    fun get_sorted_ingredients(): LiveData<List<IngredientData>>
+    fun getSortedIngredients(): LiveData<List<IngredientData>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert_ingredient(IngredientData: IngredientData)
+    suspend fun insertIngredient(IngredientData: IngredientData)
 
-    @Query("DELETE FROM ingredient WHERE id = :ingredient_id")
-    suspend fun remove_ingredient(ingredient_id: String)
+    @Query("DELETE FROM ingredient WHERE id = :ingredientId")
+    suspend fun removeIngredient(ingredientId: String)
 
     @Query("SELECT * FROM recipe_ingredient ORDER BY id ASC")
-    fun get_sorted_recipe_to_ingredients(): LiveData<List<RecipeToIngredientData>>
+    fun getSortedRecipeToIngredients(): LiveData<List<RecipeToIngredientData>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert_recipe_to_ingredients(RecipeToIngredientData: RecipeToIngredientData)
+    suspend fun insertRecipeToIngredients(RecipeToIngredientData: RecipeToIngredientData)
 
     @Query("DELETE FROM recipe_ingredient WHERE id = :id")
-    suspend fun remove_recipe_to_ingredients(id: String)
+    suspend fun removeRecipeToIngredients(id: String)
 
 }
