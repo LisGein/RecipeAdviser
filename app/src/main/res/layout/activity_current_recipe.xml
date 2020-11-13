@@ -19,15 +19,18 @@
             android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/textIngredients"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/ingredients"
             android:textSize="18sp" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview_ingredients"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/current_recipe_ingr_item" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"

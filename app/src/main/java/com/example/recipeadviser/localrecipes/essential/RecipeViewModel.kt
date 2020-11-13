@@ -1,9 +1,11 @@
-package com.example.recipeadviser.localrecipes
+package com.example.recipeadviser.localrecipes.essential
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import com.example.recipeadviser.localrecipes.RecipeRoomDatabase
+import com.example.recipeadviser.localrecipes.ingredients.IngredientData
 import kotlinx.coroutines.*
 
 class RecipeViewModel(application: Application) : AndroidViewModel(application) {
@@ -32,10 +34,17 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
         repository.remove(recipe_id)
     }
 
-    fun get_recipe_name(recipe_id: String) : String {
-        val name = runBlocking{
-             repository.get_recipe_name(recipe_id)
+    fun get_recipe_data(recipe_id: String) : RecipeData {
+        val data = runBlocking{
+             repository.get_recipe_data(recipe_id)
         }
-        return name
+        return data
+    }
+
+    fun get_ingredients(recipe_id: String) : List<IngredientData> {
+        val data = runBlocking{
+            repository.get_ingredients(recipe_id)
+        }
+        return data
     }
 }

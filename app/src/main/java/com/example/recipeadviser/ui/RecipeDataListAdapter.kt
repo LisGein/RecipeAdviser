@@ -1,4 +1,4 @@
-package com.example.recipeadviser.localrecipes
+package com.example.recipeadviser.ui
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,8 +8,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeadviser.R
-import com.example.recipeadviser.RemoveItemListener
-import com.example.recipeadviser.SelectItemListener
+import com.example.recipeadviser.localrecipes.essential.RecipeData
 
 class RecipeDataListAdapter internal constructor(
         context: Context,
@@ -26,7 +25,7 @@ class RecipeDataListAdapter internal constructor(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
-        val itemView = inflater.inflate(R.layout.recyclerview_item, parent, false)
+        val itemView = inflater.inflate(R.layout.recipe_item, parent, false)
         return RecipeViewHolder(itemView)
     }
 

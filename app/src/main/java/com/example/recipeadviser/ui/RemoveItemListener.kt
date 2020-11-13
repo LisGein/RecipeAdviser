@@ -1,6 +1,6 @@
-package com.example.recipeadviser
+package com.example.recipeadviser.ui
 
-import com.example.recipeadviser.localrecipes.RecipeViewModel
+import com.example.recipeadviser.localrecipes.essential.RecipeViewModel
 
 class RemoveItemListener internal constructor(
         private var dataViewModel: RecipeViewModel)
