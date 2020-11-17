@@ -3,6 +3,7 @@ package com.example.recipeadviser.ui
 import android.content.Intent
 import com.example.recipeadviser.MainActivity
 import com.example.recipeadviser.SerializableIngredients
+import com.example.recipeadviser.SerializableStep
 import com.example.recipeadviser.localrecipes.essential.RecipeViewModel
 
 class SelectItemListener(
@@ -24,6 +25,15 @@ class SelectItemListener(
             ingrs.add(SerializableIngredients(i.ingredient_id, i.name, i.amount, i.type))
         }
         intent.putParcelableArrayListExtra("ingredients", ingrs)
+
+
+        val steps = dataViewModel.getSteps(recipe_id)
+        var serializableSteps : ArrayList<SerializableStep> = arrayListOf()
+        for (s in steps)
+        {
+            serializableSteps.add(SerializableStep(s.recipe_id, s.number, s.description))
+        }
+        intent.putParcelableArrayListExtra("serializableSteps", serializableSteps)
 
 
         mainActivity.startActivityForResult(intent, newWordActivityRequestCode)

@@ -5,7 +5,8 @@ import com.squareup.moshi.Json
 data class UpdatedRecipesInfo(
         val recipe: List<UpdatedRecipes> = listOf(),
         @Json(name = "recipe_to_ingredient") val recipeToIngredient: List<UpdatedRecipeToIngredient> = listOf(),
-        val ingredient: List<UpdatedIngredient> = listOf()
+        val ingredient: List<UpdatedIngredient> = listOf(),
+        val step: List<UpdatedStep> = listOf()
 )
 
 data class UpdatedRecipes(
@@ -24,4 +25,10 @@ data class UpdatedIngredient(
         val name: String,
         val amount: String,
         val type: String
+)
+
+data class UpdatedStep(
+    @Json(name = "recipe_id") val recipeId: String,
+    val number: Int,
+    val description: String
 )

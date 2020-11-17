@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeadviser.R
 import com.example.recipeadviser.SerializableIngredients
+import com.example.recipeadviser.SerializableStep
 
 class CurrentRecipeActivity : AppCompatActivity() {
     private lateinit var textView: TextView
@@ -25,6 +26,16 @@ class CurrentRecipeActivity : AppCompatActivity() {
         val ings = intent.getParcelableArrayListExtra<SerializableIngredients>("ingredients")
         if (ings != null) {
             adapter.setIngredients(ings)
+        }
+
+        val stepsRecyclerView = findViewById<RecyclerView>(R.id.recyclerview_steps)
+        stepsRecyclerView.layoutManager = LinearLayoutManager(this)
+        val stepsAdapter = StepsAdapter(this)
+        stepsRecyclerView.adapter = stepsAdapter
+
+        val serializableSteps = intent.getParcelableArrayListExtra<SerializableStep>("serializableSteps")
+        if (serializableSteps != null) {
+            stepsAdapter.setSteps(serializableSteps)
         }
     }
 }

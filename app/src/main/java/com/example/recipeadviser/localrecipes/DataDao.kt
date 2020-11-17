@@ -8,6 +8,7 @@ import androidx.room.Query
 import com.example.recipeadviser.localrecipes.essential.RecipeData
 import com.example.recipeadviser.localrecipes.ingredients.IngredientData
 import com.example.recipeadviser.localrecipes.ingredients.RecipeToIngredientData
+import com.example.recipeadviser.localrecipes.steps.StepsData
 
 @Dao
 interface DataDao {
@@ -23,31 +24,52 @@ interface DataDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertRecipe(RecipeData: RecipeData)
 
-    @Query("DELETE FROM recipe")
-    suspend fun deleteAllRecipes()
+    @Query("SELECT * FROM recipe WHERE id = :recipeId")
+    suspend fun getRecipeData(recipeId: String): List<RecipeData>
 
     @Query("DELETE FROM recipe WHERE id = :recipeId")
     suspend fun removeRecipe(recipeId: String)
 
-    @Query("SELECT * FROM recipe WHERE id = :recipeId")
-    suspend fun getRecipeData(recipeId: String): List<RecipeData>
+    @Query("DELETE FROM recipe")
+    suspend fun deleteAllRecipes()
 
-    @Query("SELECT * FROM ingredient ORDER BY id ASC")
-    fun getSortedIngredients(): LiveData<List<IngredientData>>
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertStep(StepsData: StepsData)
+
+    @Query("SELECT * FROM steps WHERE recipe_id = :recipeId ORDER BY number ASC")
+    suspend fun getStepsForRecipe(recipeId: String): List<StepsData>
+
+    @Query("SELECT * FROM steps ORDER BY recipe_id, number ASC")
+    fun getSortedSteps(): LiveData<List<StepsData>>
+
+    @Query("DELETE FROM steps")
+    suspend fun deleteAllSteps()
+
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertIngredient(IngredientData: IngredientData)
 
+    @Query("SELECT * FROM ingredient ORDER BY id ASC")
+    fun getSortedIngredients(): LiveData<List<IngredientData>>
+
     @Query("DELETE FROM ingredient WHERE id = :ingredientId")
     suspend fun removeIngredient(ingredientId: String)
 
-    @Query("SELECT * FROM recipe_ingredient ORDER BY id ASC")
-    fun getSortedRecipeToIngredients(): LiveData<List<RecipeToIngredientData>>
+    @Query("DELETE FROM ingredient")
+    suspend fun deleteAllIngredients()
+
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertRecipeToIngredients(RecipeToIngredientData: RecipeToIngredientData)
 
+    @Query("SELECT * FROM recipe_ingredient ORDER BY id ASC")
+    fun getSortedRecipeToIngredients(): LiveData<List<RecipeToIngredientData>>
+
     @Query("DELETE FROM recipe_ingredient WHERE id = :id")
     suspend fun removeRecipeToIngredients(id: String)
+
+    @Query("DELETE FROM recipe_ingredient")
+    suspend fun deleteAllRecipeToIngredients()
 
 }

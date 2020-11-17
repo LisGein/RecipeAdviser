@@ -10,6 +10,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.recipeadviser.localrecipes.RecipeRoomDatabase
 import com.example.recipeadviser.localrecipes.ingredients.IngredientData
 import com.example.recipeadviser.localrecipes.ingredients.RecipeToIngredientData
+import com.example.recipeadviser.localrecipes.steps.StepsData
 import com.example.recipeadviser.network.Api
 import kotlinx.coroutines.*
 
@@ -43,7 +44,10 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
 
 
     fun removeAll() = viewModelScope.launch(Dispatchers.IO) {
-        repository.removeAllRecipe()
+        repository.removeAllRecipes()
+        repository.removeAllIngredients()
+        repository.removeAllSteps()
+        repository.removeAllRecipeToIngredients()
     }
 
     fun getRecipeData(recipeId: String) : RecipeData {
@@ -60,6 +64,13 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
         return data
     }
 
+    fun getSteps(recipeId: String) : List<StepsData> {
+        val data = runBlocking{
+            repository.getSteps(recipeId)
+        }
+        return data
+    }
+
     fun updateRecipesList(con: Context?) {
         viewModelScope.launch {
             try {
@@ -72,6 +83,9 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
                 }
                 for (recipe in listResult.ingredient) {
                     repository.insertIngredient(IngredientData(recipe.ingredientId, recipe.name, recipe.amount, recipe.type))
+                }
+                for (recipe in listResult.step) {
+                    repository.insertStep(StepsData(recipe.number, recipe.recipeId, recipe.description))
                 }
                 
                 _response.value = "Success"

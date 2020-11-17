@@ -8,10 +8,11 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.recipeadviser.localrecipes.essential.RecipeData
 import com.example.recipeadviser.localrecipes.ingredients.IngredientData
 import com.example.recipeadviser.localrecipes.ingredients.RecipeToIngredientData
+import com.example.recipeadviser.localrecipes.steps.StepsData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-@Database(entities = arrayOf(IngredientData::class, RecipeToIngredientData::class, RecipeData::class), version = 1, exportSchema = false)
+@Database(entities = arrayOf(IngredientData::class, RecipeToIngredientData::class, RecipeData::class, StepsData::class), version = 1, exportSchema = false)
 abstract class RecipeRoomDatabase : RoomDatabase() {
 
     abstract fun recipeDataDao(): DataDao
@@ -31,6 +32,8 @@ abstract class RecipeRoomDatabase : RoomDatabase() {
 
                     var recipe = RecipeData("0", "Chicken")
                     dao.insertRecipe(recipe)
+                    dao.insertStep(StepsData(1,"0", "step 1"))
+                    dao.insertStep(StepsData(2, "0","step 2"))
 
                     recipe = RecipeData("1", "Bowl")
                     dao.insertRecipe(recipe)
