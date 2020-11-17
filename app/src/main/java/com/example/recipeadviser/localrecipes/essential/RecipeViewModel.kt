@@ -1,11 +1,16 @@
 package com.example.recipeadviser.localrecipes.essential
 
 import android.app.Application
+import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.recipeadviser.localrecipes.RecipeRoomDatabase
 import com.example.recipeadviser.localrecipes.ingredients.IngredientData
+import com.example.recipeadviser.localrecipes.ingredients.RecipeToIngredientData
+import com.example.recipeadviser.network.Api
 import kotlinx.coroutines.*
 
 class RecipeViewModel(application: Application) : AndroidViewModel(application) {
@@ -17,6 +22,8 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
     // - Repository is completely separated from the UI through the ViewModel.
     val allData: LiveData<List<RecipeData>>
 
+    private val _response = MutableLiveData<String>()
+
     init {
         val dataDao = RecipeRoomDatabase.getDatabase(application, viewModelScope).recipeDataDao()
         repository = RecipeRepository(dataDao)
@@ -26,12 +33,17 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
     /**
      * Launching a new coroutine to insert the data in a non-blocking way
      */
-    fun insert(data: RecipeData) = viewModelScope.launch(Dispatchers.IO) {
-        repository.insert(data)
+    fun insertRecipe(data: RecipeData) = viewModelScope.launch(Dispatchers.IO) {
+        repository.insertRecipe(data)
     }
 
     fun remove(recipeId: String) = viewModelScope.launch(Dispatchers.IO) {
-        repository.remove(recipeId)
+        repository.removeRecipe(recipeId)
+    }
+
+
+    fun removeAll() = viewModelScope.launch(Dispatchers.IO) {
+        repository.removeAllRecipe()
     }
 
     fun getRecipeData(recipeId: String) : RecipeData {
@@ -46,5 +58,28 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
             repository.getIngredients(recipeId)
         }
         return data
+    }
+
+    fun updateRecipesList(con: Context?) {
+        viewModelScope.launch {
+            try {
+                val listResult = Api.retrofitService.getUpdatedRecipes()
+                for (recipe in listResult.recipe) {
+                    insertRecipe(RecipeData(recipe.id, recipe.recipeName))
+                }
+                for (recipe in listResult.recipeToIngredient) {
+                    repository.insertRecipeToIngredients(RecipeToIngredientData(recipe.id, recipe.recipeId, recipe.ingredientId))
+                }
+                for (recipe in listResult.ingredient) {
+                    repository.insertIngredient(IngredientData(recipe.ingredientId, recipe.name, recipe.amount, recipe.type))
+                }
+                
+                _response.value = "Success"
+            } catch (e: Exception) {
+                _response.value = "Failure: ${e.message}"
+            }
+
+            Toast.makeText(con, _response.value, Toast.LENGTH_SHORT).show()
+        }
     }
 }

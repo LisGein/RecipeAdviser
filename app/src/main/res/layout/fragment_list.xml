@@ -20,16 +20,28 @@
     </androidx.recyclerview.widget.RecyclerView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fab_show_product_list"
         android:layout_width="wrap_content"
         android:layout_height="622dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:contentDescription="@string/update_list_of_recipes"
+        android:contentDescription="@string/show_product_list"
         android:src="@drawable/ic_baseline_to_product_list_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_update"
+        android:layout_width="wrap_content"
+        android:layout_height="622dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="342dp"
+        android:layout_marginBottom="9dp"
+        android:contentDescription="@string/update_list_of_recipes"
+        android:src="@drawable/ic_baseline_update_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 </RelativeLayout>

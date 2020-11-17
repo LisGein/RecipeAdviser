@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">RecipeAdviser</string>
     <string name="update_list_of_recipes">Update list of recipes</string>
+    <string name="show_product_list">Show the product list</string>
     <string name="remove_item">Remove the recipe</string>
     <string name="ingredients">Ingredients</string>
     <string name="preparing_steps">Steps</string>

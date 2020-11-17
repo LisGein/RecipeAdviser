@@ -47,10 +47,17 @@ class ListFragment : Fragment() {
             )
         }
 
-        val fab = view.findViewById<FloatingActionButton>(R.id.fab)
+        val fab = view.findViewById<FloatingActionButton>(R.id.fab_show_product_list)
         fab.setOnClickListener {
             val navController = findNavController()
             navController.navigate(R.id.action_listFragment_to_productsFragment)
+        }
+
+        val fabUpdate = view.findViewById<FloatingActionButton>(R.id.fab_update)
+        fabUpdate.setOnClickListener {
+            dataViewModel.removeAll()
+            dataViewModel.updateRecipesList(this.context)
+
         }
 
         removeItemListener = RemoveItemListener(dataViewModel)

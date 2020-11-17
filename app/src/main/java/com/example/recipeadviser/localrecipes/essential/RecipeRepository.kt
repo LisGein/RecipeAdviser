@@ -3,6 +3,7 @@ package com.example.recipeadviser.localrecipes.essential
 import androidx.lifecycle.LiveData
 import com.example.recipeadviser.localrecipes.DataDao
 import com.example.recipeadviser.localrecipes.ingredients.IngredientData
+import com.example.recipeadviser.localrecipes.ingredients.RecipeToIngredientData
 
 class RecipeRepository(private val dataDao: DataDao) {
 
@@ -10,12 +11,16 @@ class RecipeRepository(private val dataDao: DataDao) {
     // Observed LiveData will notify the observer when the data has changed.
     val allRecipes: LiveData<List<RecipeData>> = dataDao.getSortedRecipes()
 
-    suspend fun insert(Data: RecipeData) {
+    suspend fun insertRecipe(Data: RecipeData) {
         dataDao.insertRecipe(Data)
     }
 
-    suspend fun remove(recipe_id: String) {
+    suspend fun removeRecipe(recipe_id: String) {
         dataDao.removeRecipe(recipe_id)
+    }
+
+    suspend fun removeAllRecipe() {
+        dataDao.deleteAllRecipes()
     }
 
     suspend fun getRecipeData(recipe_id: String) : RecipeData {
@@ -26,5 +31,13 @@ class RecipeRepository(private val dataDao: DataDao) {
     suspend fun getIngredients(recipe_id: String) : List<IngredientData> {
         val data = dataDao.getIngredientsForRecipe(recipe_id)
         return data
+    }
+
+    suspend fun insertIngredient(Data: IngredientData) {
+        dataDao.insertIngredient(Data)
+    }
+
+    suspend fun insertRecipeToIngredients(Data: RecipeToIngredientData) {
+        dataDao.insertRecipeToIngredients(Data)
     }
 }
