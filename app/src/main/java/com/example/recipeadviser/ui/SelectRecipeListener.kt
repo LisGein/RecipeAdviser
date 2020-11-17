@@ -5,14 +5,14 @@ import com.example.recipeadviser.MainActivity
 import com.example.recipeadviser.SerializableIngredients
 import com.example.recipeadviser.localrecipes.essential.RecipeViewModel
 
-class SelectItemListener constructor(
+class SelectItemListener(
         private var dataViewModel: RecipeViewModel,
-        private val main_activity: MainActivity)
+        private val mainActivity: MainActivity)
 {
     private val newWordActivityRequestCode = 1
     fun onClickListener(recipe_id: String)
     {
-        val intent = Intent(main_activity, CurrentRecipeActivity::class.java)
+        val intent = Intent(mainActivity, CurrentRecipeActivity::class.java)
 
         val recipeData = dataViewModel.getRecipeData(recipe_id)
         intent.putExtra("name", recipeData.recipeName)
@@ -26,6 +26,6 @@ class SelectItemListener constructor(
         intent.putParcelableArrayListExtra("ingredients", ingrs)
 
 
-        main_activity.startActivityForResult(intent, newWordActivityRequestCode)
+        mainActivity.startActivityForResult(intent, newWordActivityRequestCode)
     }
 }
