@@ -1,10 +1,11 @@
 package com.example.recipeadviser.ui
 
 import android.content.Intent
-import com.example.recipeadviser.MainActivity
+import com.example.recipeadviser.ui.activities.MainActivity
 import com.example.recipeadviser.SerializableIngredients
 import com.example.recipeadviser.SerializableStep
 import com.example.recipeadviser.localrecipes.essential.RecipeViewModel
+import com.example.recipeadviser.ui.activities.CurrentRecipeActivity
 
 class SelectItemListener(
         private var dataViewModel: RecipeViewModel,

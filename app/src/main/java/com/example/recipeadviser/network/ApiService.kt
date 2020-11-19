@@ -4,7 +4,7 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.http.GET
+import retrofit2.http.*
 
 private const val BASE_URL = "http://10.0.2.2:3002/"
 
@@ -20,6 +20,10 @@ private val retrofit = Retrofit.Builder()
 interface ApiService {
     @GET("updated_recipes")
     suspend fun getUpdatedRecipes(): UpdatedRecipesInfo
+
+    @POST("auth/login")
+    @Headers( "Content-Type: application/json;charset=UTF-8")
+    suspend fun login(@Body request: LoginRequest): LoginResponse
 }
 
 object Api {

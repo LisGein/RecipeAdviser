@@ -1,4 +1,7 @@
-package com.example.recipeadviser.ui
+package com.example.recipeadviser.ui.activities
+
+import com.example.recipeadviser.ui.IngredientsAdapter
+import com.example.recipeadviser.ui.StepsAdapter
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

@@ -1,11 +1,11 @@
-package com.example.recipeadviser
+package com.example.recipeadviser.ui.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import com.example.recipeadviser.R
 
 class ProductsFragment : Fragment() {
 
