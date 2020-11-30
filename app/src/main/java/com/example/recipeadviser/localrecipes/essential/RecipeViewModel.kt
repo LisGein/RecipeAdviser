@@ -11,7 +11,7 @@ import com.example.recipeadviser.localrecipes.RecipeRoomDatabase
 import com.example.recipeadviser.localrecipes.ingredients.IngredientData
 import com.example.recipeadviser.localrecipes.ingredients.RecipeToIngredientData
 import com.example.recipeadviser.localrecipes.steps.StepsData
-import com.example.recipeadviser.network.Api
+import com.example.recipeadviser.network.ApiClient
 import kotlinx.coroutines.*
 
 class RecipeViewModel(application: Application) : AndroidViewModel(application) {
@@ -71,10 +71,10 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
         return data
     }
 
-    fun updateRecipesList(con: Context?) {
+    fun updateRecipesList(con: Context) {
         viewModelScope.launch {
             try {
-                val listResult = Api.retrofitService.getUpdatedRecipes()
+                val listResult = ApiClient.getApiService(con).getUpdatedRecipes()
                 for (recipe in listResult.recipe) {
                     insertRecipe(RecipeData(recipe.id, recipe.recipeName))
                 }
@@ -87,7 +87,7 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
                 for (recipe in listResult.step) {
                     repository.insertStep(StepsData(recipe.number, recipe.recipeId, recipe.description))
                 }
-                
+
                 _response.value = "Success"
             } catch (e: Exception) {
                 _response.value = "Failure: ${e.message}"

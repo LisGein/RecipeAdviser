@@ -13,7 +13,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.recipeadviser.R
 import com.example.recipeadviser.UserViewModel
-import com.example.recipeadviser.network.SessionManager
 import kotlinx.coroutines.*
 
 class LoginFragment: Fragment()
@@ -26,7 +25,6 @@ class LoginFragment: Fragment()
         val passwordEditText = view.findViewById<TextView>(R.id.password)
         val loginButton = view.findViewById<Button>(R.id.btn_login)
 
-        userViewModel.setSessionManager(SessionManager(view.context))
         loginButton.setOnClickListener {
             val email = emailEditText.text.toString()
             val password = passwordEditText.text.toString()

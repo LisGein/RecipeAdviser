@@ -1,32 +1,32 @@
 package com.example.recipeadviser
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
-import com.example.recipeadviser.network.Api
+import androidx.lifecycle.ViewModelProvider
+import com.example.recipeadviser.network.ApiClient
 import com.example.recipeadviser.network.LoginRequest
 import com.example.recipeadviser.network.SessionManager
 import com.example.recipeadviser.network.TokenResponseResult
 
-class UserViewModel: ViewModel() {
-    var _sessionManager : SessionManager? = null
 
-    fun setSessionManager(sessionManager: SessionManager)
-    {
-        _sessionManager = sessionManager
+class ViewModelFactory(private val mApplication: Application) :
+    ViewModelProvider.Factory {
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        return UserViewModel(mApplication) as T
     }
+}
+
+class UserViewModel(application: Application): AndroidViewModel(application) {
+    var sessionManager = SessionManager(application.applicationContext)
 
     suspend fun login(email: String, password: String): TokenResponseResult {
-        var result = TokenResponseResult()
-
-        if (_sessionManager == null) {
-            result.code = -1
-            result.message = "SessionManager isn't initialized"
-            return result
-        }
+        val result = TokenResponseResult()
 
         try {
-            var loginResponse = Api.retrofitService.login(LoginRequest(email, password))
-            if (loginResponse?.statusCode == 200) {
-                _sessionManager?.saveAuthToken(loginResponse.authToken)
+            val loginResponse = ApiClient.getApiService(getApplication<Application>().applicationContext.applicationContext).login(LoginRequest(email, password))
+            if (loginResponse.statusCode == 200) {
+                sessionManager.saveAuthToken(loginResponse.authToken)
                 result.code = 200
             }
         } catch (e: retrofit2.HttpException)

@@ -1,26 +1,27 @@
 package com.example.recipeadviser.ui.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.recipeadviser.ui.activities.MainActivity
 import com.example.recipeadviser.R
 import com.example.recipeadviser.UserViewModel
+import com.example.recipeadviser.ViewModelFactory
 import com.example.recipeadviser.localrecipes.essential.RecipeViewModel
 import com.example.recipeadviser.ui.RecipeDataListAdapter
 import com.example.recipeadviser.ui.RemoveItemListener
 import com.example.recipeadviser.ui.SelectItemListener
+import com.example.recipeadviser.ui.activities.MainActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class RecipeListFragment : Fragment() {
-    private val userViewModel: UserViewModel by activityViewModels()
+    private val userViewModel: UserViewModel by activityViewModels{ ViewModelFactory(requireActivity().application) }
 
     private lateinit var dataViewModel: RecipeViewModel
 
@@ -44,7 +45,7 @@ class RecipeListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val navController = findNavController()
-        if (userViewModel._sessionManager?.fetchAuthToken() == null) {
+        if (userViewModel.sessionManager.fetchAuthToken() == null) {
             navController.navigate(R.id.loginFragment)
         }
 
@@ -63,10 +64,9 @@ class RecipeListFragment : Fragment() {
         }
 
         val fabUpdate = view.findViewById<FloatingActionButton>(R.id.fab_update)
-        fabUpdate.setOnClickListener {
+        fabUpdate.setOnClickListener {context?.let {
             dataViewModel.removeAll()
-            dataViewModel.updateRecipesList(this.context)
-
+            dataViewModel.updateRecipesList(it)  }
         }
 
         removeItemListener = RemoveItemListener(dataViewModel)
