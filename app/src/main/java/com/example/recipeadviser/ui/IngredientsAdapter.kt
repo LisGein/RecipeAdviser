@@ -29,7 +29,7 @@ class IngredientsAdapter internal constructor(
     override fun onBindViewHolder(holder: IngredientsViewHolder, position: Int) {
         val current = data[position]
         holder.ingrName.text = current.name
-        holder.ingrAmount.text = current.amount
+        holder.ingrAmount.setText(current.amount.toString() + current.measure)
 
     }
 

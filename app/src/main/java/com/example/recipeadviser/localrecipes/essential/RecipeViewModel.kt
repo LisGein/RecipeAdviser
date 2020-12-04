@@ -3,16 +3,20 @@ package com.example.recipeadviser.localrecipes.essential
 import android.app.Application
 import android.content.Context
 import android.widget.Toast
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.recipeadviser.localrecipes.RecipeRoomDatabase
 import com.example.recipeadviser.localrecipes.ingredients.IngredientData
 import com.example.recipeadviser.localrecipes.ingredients.RecipeToIngredientData
 import com.example.recipeadviser.localrecipes.steps.StepsData
 import com.example.recipeadviser.network.ApiClient
 import kotlinx.coroutines.*
+
+class RecipeViewModelFactory(private val mApplication: Application) :
+    ViewModelProvider.Factory {
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        return RecipeViewModel(mApplication) as T
+    }
+}
 
 class RecipeViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -52,7 +56,14 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
 
     fun getRecipeData(recipeId: String) : RecipeData {
         val data = runBlocking{
-             repository.getRecipeData(recipeId)
+            repository.getRecipeData(recipeId)
+        }
+        return data
+    }
+
+    fun getAllIngredients() : LiveData<List<IngredientData>> {
+        val data = runBlocking{
+            repository.getAllIngredients()
         }
         return data
     }
@@ -82,7 +93,7 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
                     repository.insertRecipeToIngredients(RecipeToIngredientData(recipe.id, recipe.recipeId, recipe.ingredientId))
                 }
                 for (recipe in listResult.ingredient) {
-                    repository.insertIngredient(IngredientData(recipe.ingredientId, recipe.name, recipe.amount, recipe.type))
+                    repository.insertIngredient(IngredientData(recipe.ingredientId, recipe.name, recipe.amount, recipe.measure, recipe.type))
                 }
                 for (recipe in listResult.step) {
                     repository.insertStep(StepsData(recipe.number, recipe.recipeId, recipe.description))

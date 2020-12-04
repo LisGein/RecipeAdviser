@@ -42,6 +42,10 @@ class RecipeRepository(private val dataDao: DataDao) {
         return data.get(0)
     }
 
+    fun getAllIngredients() : LiveData<List<IngredientData>> {
+        return dataDao.getSortedIngredients()
+    }
+
     suspend fun getIngredients(recipe_id: String) : List<IngredientData> {
         val data = dataDao.getIngredientsForRecipe(recipe_id)
         return data

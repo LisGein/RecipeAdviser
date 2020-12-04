@@ -23,7 +23,8 @@ data class UpdatedRecipeToIngredient(
 data class UpdatedIngredient(
         @Json(name = "ingredient_id") val ingredientId: String,
         val name: String,
-        val amount: String,
+        val amount: Double,
+        val measure: String,
         val type: String
 )
 

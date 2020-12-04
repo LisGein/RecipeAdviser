@@ -10,7 +10,7 @@ import com.example.recipeadviser.network.SessionManager
 import com.example.recipeadviser.network.TokenResponseResult
 
 
-class ViewModelFactory(private val mApplication: Application) :
+class UserViewModelFactory(private val mApplication: Application) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return UserViewModel(mApplication) as T

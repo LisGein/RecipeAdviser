@@ -6,14 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeadviser.R
 import com.example.recipeadviser.UserViewModel
-import com.example.recipeadviser.ViewModelFactory
+import com.example.recipeadviser.UserViewModelFactory
 import com.example.recipeadviser.localrecipes.essential.RecipeViewModel
+import com.example.recipeadviser.localrecipes.essential.RecipeViewModelFactory
 import com.example.recipeadviser.ui.RecipeDataListAdapter
 import com.example.recipeadviser.ui.RemoveItemListener
 import com.example.recipeadviser.ui.SelectItemListener
@@ -21,9 +21,9 @@ import com.example.recipeadviser.ui.activities.MainActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class RecipeListFragment : Fragment() {
-    private val userViewModel: UserViewModel by activityViewModels{ ViewModelFactory(requireActivity().application) }
+    private val userViewModel: UserViewModel by activityViewModels{ UserViewModelFactory(requireActivity().application) }
 
-    private lateinit var dataViewModel: RecipeViewModel
+    private val dataViewModel: RecipeViewModel by activityViewModels{ RecipeViewModelFactory(requireActivity().application) }
 
     private lateinit var removeItemListener: RemoveItemListener
     private lateinit var selectItemListener: SelectItemListener
@@ -47,15 +47,6 @@ class RecipeListFragment : Fragment() {
         val navController = findNavController()
         if (userViewModel.sessionManager.fetchAuthToken() == null) {
             navController.navigate(R.id.loginFragment)
-        }
-
-        if (requireActivity().application != null) {
-            dataViewModel = ViewModelProvider(
-                this,
-                ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
-            ).get(
-                RecipeViewModel::class.java
-            )
         }
 
         val fab = view.findViewById<FloatingActionButton>(R.id.fab_show_product_list)
