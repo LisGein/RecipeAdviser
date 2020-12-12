@@ -9,10 +9,11 @@ import com.example.recipeadviser.localrecipes.essential.RecipeData
 import com.example.recipeadviser.localrecipes.ingredients.IngredientData
 import com.example.recipeadviser.localrecipes.ingredients.RecipeToIngredientData
 import com.example.recipeadviser.localrecipes.steps.StepsData
+import com.example.recipeadviser.ui.productlist.ProductListIngredientInfo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-@Database(entities = arrayOf(IngredientData::class, RecipeToIngredientData::class, RecipeData::class, StepsData::class), version = 1, exportSchema = false)
+@Database(entities = arrayOf(IngredientData::class, RecipeToIngredientData::class, RecipeData::class, StepsData::class, ProductListIngredientInfo::class ), version = 1, exportSchema = false)
 abstract class RecipeRoomDatabase : RoomDatabase() {
 
     abstract fun recipeDataDao(): DataDao

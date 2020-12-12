@@ -15,16 +15,23 @@ import com.example.recipeadviser.R
 import com.example.recipeadviser.SerializableIngredients
 import com.example.recipeadviser.convertToSerializableIngredients
 import com.example.recipeadviser.localrecipes.ingredients.IngredientData
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
-class ProductListAdapter(i_context: Context, i_ingredients: LiveData<List<IngredientData>>, viewLifecycleOwner: LifecycleOwner) : BaseExpandableListAdapter() {
+class ProductListAdapter(i_context: Context, i_ingredients: LiveData<List<IngredientData>>, viewLifecycleOwner: LifecycleOwner, i_productsViewModel: ProductListViewModel) : BaseExpandableListAdapter() {
     val context: Context = i_context
+    val productsViewModel: ProductListViewModel = i_productsViewModel
+
     var ingredients: LiveData<List<IngredientData>> = i_ingredients
 
-    var expandableListTitle = listOf<String>()
+    var expandableListTitle = mutableListOf<String>()
     var expandableListDetail = hashMapOf<String, MutableList<SerializableIngredients>>()
 
     init{
         ingredients.observe(viewLifecycleOwner, { list ->
+            expandableListDetail.clear()
+            expandableListTitle.clear()
 
             for (ingr in list) {
                 if (!expandableListDetail.containsKey(ingr.type)) {
@@ -46,20 +53,29 @@ class ProductListAdapter(i_context: Context, i_ingredients: LiveData<List<Ingred
     override fun getChild(groupPosition: Int, childPosition: Int): Any {
         return this.expandableListDetail.get(this.expandableListTitle.get(groupPosition))?.get(childPosition).toString()
     }
+
     override fun getChildView(groupPosition: Int, childPosition: Int, isLastChild: Boolean, convertView: View?, parent: ViewGroup?): View {
         var convertView = convertView
-        val expandedListText = this.getChild(groupPosition, childPosition).toString()
+        val obj =expandableListDetail.get(this.expandableListTitle.get(groupPosition))?.get(childPosition)
+
+        val expandedListText = obj.toString()
         if (convertView == null) {
             val layoutInflater = this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             convertView = layoutInflater.inflate(R.layout.product_list_item, null)
         }
         val expandedListTextView = convertView?.findViewById(R.id.expanded_list_item) as CheckBox
         expandedListTextView.text = expandedListText
+
+        obj!!.ingredientId?.let {
+            val checked = productsViewModel.find(it)
+            expandedListTextView.setChecked(checked)
+        }
+
         expandedListTextView.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked)
-                expandedListTextView.paintFlags = expandedListTextView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-            else
-                expandedListTextView.paintFlags = expandedListTextView.paintFlags xor Paint.STRIKE_THRU_TEXT_FLAG
+            expandedListTextView.paintFlags = expandedListTextView.paintFlags xor Paint.STRIKE_THRU_TEXT_FLAG
+
+            runBlocking {
+            productsViewModel.addCheckedIngredient(ProductListIngredientInfo(obj!!.ingredientId!!, isChecked)) }
         }
 
         return convertView

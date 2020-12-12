@@ -10,8 +10,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
+        android:configChanges="locale"
         android:theme="@style/Theme.RecipeAdviser">
-        <activity android:name=".ui.activities.CurrentRecipeActivity"/>
+        <activity android:name=".ui.activities.CurrentRecipeActivity" />
         <activity android:name=".ui.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

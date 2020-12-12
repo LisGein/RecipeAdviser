@@ -34,7 +34,7 @@ object ApiClient {
 
     private fun okhttpClient(context: Context): OkHttpClient {
         return OkHttpClient.Builder()
-            .addInterceptor(AuthInterceptor(context))
+            .addInterceptor(RequestInterceptor(context))
             .build()
     }
 }

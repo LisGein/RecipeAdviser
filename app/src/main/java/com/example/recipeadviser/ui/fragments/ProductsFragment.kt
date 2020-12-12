@@ -11,10 +11,15 @@ import com.example.recipeadviser.R
 import com.example.recipeadviser.localrecipes.essential.RecipeViewModel
 import com.example.recipeadviser.localrecipes.essential.RecipeViewModelFactory
 import com.example.recipeadviser.ui.productlist.ProductListAdapter
+import com.example.recipeadviser.ui.productlist.ProductListViewModel
+import com.example.recipeadviser.ui.productlist.ProductListViewModelFactory
 
 class ProductsFragment : Fragment() {
 
     private val recipeViewModel: RecipeViewModel by activityViewModels{ RecipeViewModelFactory(requireActivity().application) }
+    private val productsViewModel: ProductListViewModel by activityViewModels{ ProductListViewModelFactory(requireActivity().application) }
+
+    var adapter: ProductListAdapter? = null
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -29,7 +34,9 @@ class ProductsFragment : Fragment() {
 
         val expandableProductList = view.findViewById<ExpandableListView>(R.id.expandable_product_list)
 
-        val adapter = this.context?.let { ProductListAdapter(it, recipeViewModel.getAllIngredients(), viewLifecycleOwner) }
+        adapter = this.context?.let { ProductListAdapter(it, recipeViewModel.getAllIngredients(), viewLifecycleOwner, productsViewModel) }
         expandableProductList.setAdapter(adapter)
+
     }
+
 }

@@ -5,6 +5,7 @@ import com.example.recipeadviser.localrecipes.DataDao
 import com.example.recipeadviser.localrecipes.ingredients.IngredientData
 import com.example.recipeadviser.localrecipes.ingredients.RecipeToIngredientData
 import com.example.recipeadviser.localrecipes.steps.StepsData
+import com.example.recipeadviser.ui.productlist.ProductListIngredientInfo
 
 class RecipeRepository(private val dataDao: DataDao) {
 
@@ -67,4 +68,17 @@ class RecipeRepository(private val dataDao: DataDao) {
     suspend fun insertStep(Data: StepsData) {
         dataDao.insertStep(Data)
     }
+
+    suspend fun insertIngredient(Data: ProductListIngredientInfo) {
+        dataDao.insertProductListIngredient(Data)
+    }
+
+    suspend fun removeAllProducts() {
+        dataDao.deleteAllProductListIngredients()
+    }
+
+    suspend fun getProductListIngredientInfo(id: String) : List<ProductListIngredientInfo>{
+        return dataDao.getProductListIngredientInfo(id)
+    }
+
 }

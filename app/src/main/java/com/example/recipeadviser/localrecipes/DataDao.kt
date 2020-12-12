@@ -9,6 +9,7 @@ import com.example.recipeadviser.localrecipes.essential.RecipeData
 import com.example.recipeadviser.localrecipes.ingredients.IngredientData
 import com.example.recipeadviser.localrecipes.ingredients.RecipeToIngredientData
 import com.example.recipeadviser.localrecipes.steps.StepsData
+import com.example.recipeadviser.ui.productlist.ProductListIngredientInfo
 
 @Dao
 interface DataDao {
@@ -71,5 +72,21 @@ interface DataDao {
 
     @Query("DELETE FROM recipe_ingredient")
     suspend fun deleteAllRecipeToIngredients()
+
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertProductListIngredient(productListIngredientInfo: ProductListIngredientInfo)
+
+    @Query("SELECT * FROM product_list_ingredient ORDER BY id ASC")
+    suspend fun getSortedProductListIngredients(): List<ProductListIngredientInfo>
+
+    @Query("DELETE FROM product_list_ingredient WHERE id = :id")
+    suspend fun removeProductListIngredient(id: String)
+
+    @Query("DELETE FROM product_list_ingredient")
+    suspend fun deleteAllProductListIngredients()
+
+    @Query("SELECT * FROM product_list_ingredient WHERE id = :ingrId")
+    suspend fun getProductListIngredientInfo(ingrId: String): List<ProductListIngredientInfo>
 
 }

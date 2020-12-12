@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RecipeAdviser</string>
+    <string name="update_list_of_recipes">Обновить список рецептов</string>
+    <string name="show_product_list">Показать список покупок</string>
+    <string name="remove_item">Удалить рецепт</string>
+    <string name="ingredients">Ингредиенты</string>
+    <string name="preparing_steps">Шаги</string>
+    <string name="action_settings">Настройки</string>
+    <string name="login">Log in</string>
+    <string name="create_new_account">Create new account</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="language">Язык</string>
+</resources>
