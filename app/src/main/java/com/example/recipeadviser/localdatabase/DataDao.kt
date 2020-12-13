@@ -8,6 +8,7 @@ import androidx.room.Query
 import com.example.recipeadviser.localdatabase.essential.RecipeData
 import com.example.recipeadviser.localdatabase.ingredients.IngredientData
 import com.example.recipeadviser.localdatabase.ingredients.RecipeToIngredientData
+import com.example.recipeadviser.localdatabase.ingredients.UserIngredient
 import com.example.recipeadviser.localdatabase.steps.StepsData
 import com.example.recipeadviser.ui.productlist.ProductListIngredientInfo
 
@@ -98,5 +99,15 @@ interface DataDao {
 
     @Query("SELECT * FROM filter ORDER BY param_name ASC")
     suspend fun getAllFilters(): List<FilterData>
+
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertUserIngredient(data: UserIngredient)
+
+    @Query("SELECT * FROM user_ingredient WHERE name = :id")
+    suspend fun getUserIngredient(id: String): List<UserIngredient>
+
+    @Query("SELECT * FROM user_ingredient ORDER BY name ASC")
+    fun getUserIngredients(): LiveData<List<UserIngredient>>
 
 }

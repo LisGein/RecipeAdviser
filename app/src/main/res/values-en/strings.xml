@@ -17,4 +17,10 @@
     <string name="low_calorie">Low Calorie</string>
     <string name="vegetarian">Vegetarian</string>
     <string name="liver_disease">Liver Disease</string>
+    <string name="add_ingr">Add ingredient</string>
+    <string name="name_of_ingr">Name</string>
+    <string name="quantity_of_inr">Quantity</string>
+    <string name="type_of_inr">Type</string>
+    <string name="unit_of_measure">Unit</string>
+    <string name="cancel">Cancel</string>
 </resources>

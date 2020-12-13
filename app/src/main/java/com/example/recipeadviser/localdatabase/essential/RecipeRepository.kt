@@ -5,6 +5,7 @@ import com.example.recipeadviser.localdatabase.DataDao
 import com.example.recipeadviser.localdatabase.FilterData
 import com.example.recipeadviser.localdatabase.ingredients.IngredientData
 import com.example.recipeadviser.localdatabase.ingredients.RecipeToIngredientData
+import com.example.recipeadviser.localdatabase.ingredients.UserIngredient
 import com.example.recipeadviser.localdatabase.steps.StepsData
 import com.example.recipeadviser.ui.productlist.ProductListIngredientInfo
 
@@ -48,6 +49,10 @@ class RecipeRepository(private val dataDao: DataDao) {
         return dataDao.getSortedIngredients()
     }
 
+    fun getUserIngredients() : LiveData<List<UserIngredient>> {
+        return dataDao.getUserIngredients()
+    }
+
     suspend fun getIngredients(recipe_id: String) : List<IngredientData> {
         val data = dataDao.getIngredientsForRecipe(recipe_id)
         return data
@@ -70,8 +75,11 @@ class RecipeRepository(private val dataDao: DataDao) {
         dataDao.insertStep(Data)
     }
 
-    suspend fun insertIngredient(Data: ProductListIngredientInfo) {
-        dataDao.insertProductListIngredient(Data)
+    suspend fun insertUserIngredient(data: UserIngredient) {
+        val list = dataDao.getUserIngredient(data.name)
+        if (!list.isEmpty())
+            data.amount += list.get(0).amount
+        dataDao.insertUserIngredient(data)
     }
 
     suspend fun removeAllProducts() {

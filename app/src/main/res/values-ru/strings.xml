@@ -17,4 +17,10 @@
     <string name="low_calorie">Низкокалорийная</string>
     <string name="vegetarian">Вегетарианская</string>
     <string name="liver_disease">Стол номер 5</string>
+    <string name="add_ingr">Добавить ингредиент</string>
+    <string name="name_of_ingr">Название ингредиента</string>
+    <string name="quantity_of_inr">Кол-во</string>
+    <string name="type_of_inr">Тип</string>
+    <string name="unit_of_measure">Ед. измерения</string>
+    <string name="cancel">Отмена</string>
 </resources>

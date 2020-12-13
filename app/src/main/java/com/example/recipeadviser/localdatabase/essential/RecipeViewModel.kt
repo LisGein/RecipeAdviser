@@ -8,6 +8,7 @@ import com.example.recipeadviser.localdatabase.FilterData
 import com.example.recipeadviser.localdatabase.RecipeRoomDatabase
 import com.example.recipeadviser.localdatabase.ingredients.IngredientData
 import com.example.recipeadviser.localdatabase.ingredients.RecipeToIngredientData
+import com.example.recipeadviser.localdatabase.ingredients.UserIngredient
 import com.example.recipeadviser.localdatabase.steps.StepsData
 import com.example.recipeadviser.network.ApiClient
 import kotlinx.coroutines.Dispatchers
@@ -75,6 +76,17 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
     fun getIngredients(recipeId: String) : List<IngredientData> {
         val data = runBlocking{
             repository.getIngredients(recipeId)
+        }
+        return data
+    }
+
+    suspend fun insertUserIngredient(data: UserIngredient) {
+        repository.insertUserIngredient(data)
+    }
+
+    fun getUserIngredients() : LiveData<List<UserIngredient>> {
+        val data = runBlocking{
+            repository.getUserIngredients()
         }
         return data
     }

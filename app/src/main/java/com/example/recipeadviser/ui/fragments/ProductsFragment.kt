@@ -13,6 +13,7 @@ import com.example.recipeadviser.localdatabase.essential.RecipeViewModelFactory
 import com.example.recipeadviser.ui.productlist.ProductListAdapter
 import com.example.recipeadviser.ui.productlist.ProductListViewModel
 import com.example.recipeadviser.ui.productlist.ProductListViewModelFactory
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class ProductsFragment : Fragment() {
 
@@ -34,9 +35,13 @@ class ProductsFragment : Fragment() {
 
         val expandableProductList = view.findViewById<ExpandableListView>(R.id.expandable_product_list)
 
-        adapter = this.context?.let { ProductListAdapter(it, recipeViewModel.getAllIngredients(), viewLifecycleOwner, productsViewModel) }
+        adapter = this.context?.let { ProductListAdapter(it, recipeViewModel.getAllIngredients(), recipeViewModel.getUserIngredients(), viewLifecycleOwner, productsViewModel) }
         expandableProductList.setAdapter(adapter)
 
+        val fab = view.findViewById<FloatingActionButton>(R.id.fab_add_ingr)
+        fab.setOnClickListener {
+            AddIngrDialogFragment().show(
+                childFragmentManager, AddIngrDialogFragment.TAG)
+        }
     }
-
 }

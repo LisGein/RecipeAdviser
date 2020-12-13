@@ -15,37 +15,62 @@ import com.example.recipeadviser.R
 import com.example.recipeadviser.SerializableIngredients
 import com.example.recipeadviser.convertToSerializableIngredients
 import com.example.recipeadviser.localdatabase.ingredients.IngredientData
+import com.example.recipeadviser.localdatabase.ingredients.UserIngredient
 import kotlinx.coroutines.runBlocking
 
-class ProductListAdapter(i_context: Context, i_ingredients: LiveData<List<IngredientData>>, viewLifecycleOwner: LifecycleOwner, i_productsViewModel: ProductListViewModel) : BaseExpandableListAdapter() {
+class ProductListAdapter(i_context: Context, i_ingredients: LiveData<List<IngredientData>>, i_userIngredients: LiveData<List<UserIngredient>>,
+                         viewLifecycleOwner: LifecycleOwner, i_productsViewModel: ProductListViewModel) : BaseExpandableListAdapter() {
     val context: Context = i_context
     val productsViewModel: ProductListViewModel = i_productsViewModel
 
     var ingredients: LiveData<List<IngredientData>> = i_ingredients
+    var userIngredients: LiveData<List<UserIngredient>> = i_userIngredients
 
     var expandableListTitle = mutableListOf<String>()
     var expandableListDetail = hashMapOf<String, MutableList<SerializableIngredients>>()
 
     init{
         ingredients.observe(viewLifecycleOwner, { list ->
-            expandableListDetail.clear()
-            expandableListTitle.clear()
-
-            for (ingr in list) {
-                if (!expandableListDetail.containsKey(ingr.type)) {
-                    expandableListDetail.put(ingr.type, mutableListOf())
-                }
-                val current = expandableListDetail.get(ingr.type)!!.find { it.name == ingr.name }
-                if (current != null) {
-                    current.addAmount(ingr.amount)
-                } else {
-                    expandableListDetail.get(ingr.type)!!.add(convertToSerializableIngredients(ingr))
-                }
-
-            }
-            expandableListTitle = ArrayList<String>(expandableListDetail.keys)
-            notifyDataSetChanged()
+            updateData()
         })
+
+        userIngredients.observe(viewLifecycleOwner, { list ->
+            updateData()
+        })
+    }
+
+    private fun updateData()
+    {
+        expandableListDetail.clear()
+        expandableListTitle.clear()
+
+        if (ingredients.value != null) {
+            for (ingr in ingredients.value!!) {
+                addIngredient(convertToSerializableIngredients(ingr))
+            }
+        }
+
+        if (userIngredients.value != null) {
+            for (ingr in userIngredients.value!!) {
+                addIngredient(convertToSerializableIngredients(ingr))
+            }
+        }
+
+        expandableListTitle = ArrayList(expandableListDetail.keys)
+        notifyDataSetChanged()
+    }
+
+    private fun addIngredient(serIngr: SerializableIngredients)
+    {
+        if (!expandableListDetail.containsKey(serIngr.type)) {
+            expandableListDetail.put(serIngr.type!!, mutableListOf())
+        }
+        val current = expandableListDetail.get(serIngr.type)!!.find { it.name == serIngr.name }
+        if (current != null) {
+            current.addAmount(serIngr.amount!!)
+        } else {
+            expandableListDetail.get(serIngr.type)!!.add(serIngr)
+        }
     }
 
     override fun getChild(groupPosition: Int, childPosition: Int): Any {

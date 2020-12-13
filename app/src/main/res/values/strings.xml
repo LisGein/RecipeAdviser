@@ -19,6 +19,13 @@
     <string name="vegetarian_key" translatable="false">vegetarian</string>
     <string name="low_calorie_key" translatable="false">low_calorie</string>
     <string name="liver_disease_key" translatable="false">liver_disease</string>
+    <string name="add_ingr">Add ingredient</string>
+    <string name="name_of_ingr">Name</string>
+    <string name="quantity_of_inr">Quantity</string>
+    <string name="type_of_inr">Type</string>
+    <string name="unit_of_measure">Unit</string>
+    <string name="ok" translatable="false">OK</string>
+    <string name="cancel">Cancel</string>
 
     <string-array name="languages_array">
         <item>English</item>

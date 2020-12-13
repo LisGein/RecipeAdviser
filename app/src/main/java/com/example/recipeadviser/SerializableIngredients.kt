@@ -3,10 +3,15 @@ package com.example.recipeadviser
 import android.os.Parcel
 import android.os.Parcelable
 import com.example.recipeadviser.localdatabase.ingredients.IngredientData
+import com.example.recipeadviser.localdatabase.ingredients.UserIngredient
 
 fun convertToSerializableIngredients(ingr: IngredientData) : SerializableIngredients
 {
     return SerializableIngredients(ingr.ingredient_id, ingr.name, ingr.amount, ingr.measure, ingr.type)
+}
+fun convertToSerializableIngredients(ingr: UserIngredient) : SerializableIngredients
+{
+    return SerializableIngredients("-", ingr.name, ingr.amount, ingr.measure, ingr.type)
 }
 
 class SerializableIngredients(val ingredientId: String?,
