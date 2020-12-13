@@ -8,7 +8,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeadviser.R
-import com.example.recipeadviser.localrecipes.essential.RecipeData
+import com.example.recipeadviser.localdatabase.essential.RecipeData
 
 class RecipeDataListAdapter internal constructor(
         context: Context,

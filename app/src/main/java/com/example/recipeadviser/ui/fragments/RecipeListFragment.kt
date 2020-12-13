@@ -4,15 +4,12 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeadviser.R
-import com.example.recipeadviser.UserViewModel
-import com.example.recipeadviser.UserViewModelFactory
-import com.example.recipeadviser.localrecipes.essential.RecipeViewModel
-import com.example.recipeadviser.localrecipes.essential.RecipeViewModelFactory
+import com.example.recipeadviser.localdatabase.essential.RecipeViewModel
+import com.example.recipeadviser.localdatabase.essential.RecipeViewModelFactory
 import com.example.recipeadviser.ui.RecipeDataListAdapter
 import com.example.recipeadviser.ui.RemoveItemListener
 import com.example.recipeadviser.ui.SelectItemListener
@@ -22,8 +19,6 @@ import com.example.recipeadviser.ui.productlist.ProductListViewModelFactory
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class RecipeListFragment : Fragment() {
-    private val userViewModel: UserViewModel by activityViewModels{ UserViewModelFactory(requireActivity().application) }
-
     private val dataViewModel: RecipeViewModel by activityViewModels{ RecipeViewModelFactory(requireActivity().application) }
 
     private val productsViewModel: ProductListViewModel by activityViewModels{ ProductListViewModelFactory(requireActivity().application) }
@@ -58,6 +53,11 @@ class RecipeListFragment : Fragment() {
                 findNavController().navigate(R.id.settingsFragment)
                 true
             }
+            R.id.action_food_prefs -> {
+                findNavController().navigate(R.id.foodPrefsFragment)
+                true
+            }
+
 
             else -> super.onOptionsItemSelected(item)
         }
@@ -72,7 +72,7 @@ class RecipeListFragment : Fragment() {
 */
         val fab = view.findViewById<FloatingActionButton>(R.id.fab_show_product_list)
         fab.setOnClickListener {
-            findNavController().navigate(R.id.action_listFragment_to_productsFragment)
+            navController.navigate(R.id.action_listFragment_to_productsFragment)
         }
 
         val fabUpdate = view.findViewById<FloatingActionButton>(R.id.fab_update)

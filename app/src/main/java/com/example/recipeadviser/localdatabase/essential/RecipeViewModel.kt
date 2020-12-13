@@ -1,15 +1,19 @@
-package com.example.recipeadviser.localrecipes.essential
+package com.example.recipeadviser.localdatabase.essential
 
 import android.app.Application
 import android.content.Context
 import android.widget.Toast
 import androidx.lifecycle.*
-import com.example.recipeadviser.localrecipes.RecipeRoomDatabase
-import com.example.recipeadviser.localrecipes.ingredients.IngredientData
-import com.example.recipeadviser.localrecipes.ingredients.RecipeToIngredientData
-import com.example.recipeadviser.localrecipes.steps.StepsData
+import com.example.recipeadviser.localdatabase.FilterData
+import com.example.recipeadviser.localdatabase.RecipeRoomDatabase
+import com.example.recipeadviser.localdatabase.ingredients.IngredientData
+import com.example.recipeadviser.localdatabase.ingredients.RecipeToIngredientData
+import com.example.recipeadviser.localdatabase.steps.StepsData
 import com.example.recipeadviser.network.ApiClient
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import org.json.JSONObject
 
 class RecipeViewModelFactory(private val mApplication: Application) :
     ViewModelProvider.Factory {
@@ -82,21 +86,64 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
         return data
     }
 
+    fun insertNewFilter(data: FilterData) {
+        viewModelScope.launch {
+            repository.insertNewFilter(data)
+        }
+    }
+
+    fun getFilter(name: String): FilterData? {
+        val filters =
+        runBlocking {
+            repository.getFilter(name)
+        }
+        return if (filters.isEmpty()) null else filters.get(0)
+    }
+
     fun updateRecipesList(con: Context) {
         viewModelScope.launch {
             try {
-                val listResult = ApiClient.getApiService(con).getUpdatedRecipes()
+                val filters =  repository.getAllFilters()
+
+                val rootObject= JSONObject()
+                for (f in filters)
+                {
+                    rootObject.put(f.param_name,f.is_checked)
+                }
+
+
+                val listResult = ApiClient.getApiService(con).getUpdatedRecipes(rootObject.toString())
                 for (recipe in listResult.recipe) {
                     insertRecipe(RecipeData(recipe.id, recipe.recipeName))
                 }
                 for (recipe in listResult.recipeToIngredient) {
-                    repository.insertRecipeToIngredients(RecipeToIngredientData(recipe.id, recipe.recipeId, recipe.ingredientId))
+                    repository.insertRecipeToIngredients(
+                        RecipeToIngredientData(
+                            recipe.id,
+                            recipe.recipeId,
+                            recipe.ingredientId
+                        )
+                    )
                 }
                 for (recipe in listResult.ingredient) {
-                    repository.insertIngredient(IngredientData(recipe.ingredientId, recipe.name, recipe.amount, recipe.measure, recipe.type))
+                    repository.insertIngredient(
+                        IngredientData(
+                            recipe.ingredientId,
+                            recipe.name,
+                            recipe.amount,
+                            recipe.measure,
+                            recipe.type
+                        )
+                    )
                 }
                 for (recipe in listResult.step) {
-                    repository.insertStep(StepsData(recipe.number, recipe.recipeId, recipe.description))
+                    repository.insertStep(
+                        StepsData(
+                            recipe.number,
+                            recipe.recipeId,
+                            recipe.description
+                        )
+                    )
                 }
 
                 _response.value = "Success"

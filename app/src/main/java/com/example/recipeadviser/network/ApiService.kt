@@ -4,8 +4,8 @@ import retrofit2.http.*
 
 
 interface ApiService {
-    @GET("updated_recipes")
-    suspend fun getUpdatedRecipes(): UpdatedRecipesInfo
+    @POST("updated_recipes")
+    suspend fun getUpdatedRecipes(@Body body: String): UpdatedRecipesInfo
 
     @POST("auth/login")
     @Headers( "Content-Type: application/json;charset=UTF-8")

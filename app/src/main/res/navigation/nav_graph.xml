@@ -24,6 +24,9 @@
         <action
             android:id="@+id/action_listFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_listFragment_to_foodPrefsFragment"
+            app:destination="@id/foodPrefsFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -35,6 +38,14 @@
         android:label="SettingsFragment" >
         <action
             android:id="@+id/action_settingsFragment_to_listFragment"
+            app:destination="@id/listFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/foodPrefsFragment"
+        android:name="com.example.recipeadviser.ui.fragments.FoodPrefsFragment"
+        android:label="FoodPrefsFragment" >
+        <action
+            android:id="@+id/action_foodPrefsFragment_to_listFragment"
             app:destination="@id/listFragment" />
     </fragment>
 </navigation>

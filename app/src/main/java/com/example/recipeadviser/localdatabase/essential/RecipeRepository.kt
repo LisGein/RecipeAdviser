@@ -1,10 +1,11 @@
-package com.example.recipeadviser.localrecipes.essential
+package com.example.recipeadviser.localdatabase.essential
 
 import androidx.lifecycle.LiveData
-import com.example.recipeadviser.localrecipes.DataDao
-import com.example.recipeadviser.localrecipes.ingredients.IngredientData
-import com.example.recipeadviser.localrecipes.ingredients.RecipeToIngredientData
-import com.example.recipeadviser.localrecipes.steps.StepsData
+import com.example.recipeadviser.localdatabase.DataDao
+import com.example.recipeadviser.localdatabase.FilterData
+import com.example.recipeadviser.localdatabase.ingredients.IngredientData
+import com.example.recipeadviser.localdatabase.ingredients.RecipeToIngredientData
+import com.example.recipeadviser.localdatabase.steps.StepsData
 import com.example.recipeadviser.ui.productlist.ProductListIngredientInfo
 
 class RecipeRepository(private val dataDao: DataDao) {
@@ -81,4 +82,16 @@ class RecipeRepository(private val dataDao: DataDao) {
         return dataDao.getProductListIngredientInfo(id)
     }
 
+    suspend fun insertNewFilter(data: FilterData) {
+        dataDao.insertNewFilter(data)
+    }
+
+    suspend fun getFilter(data: String) : List<FilterData> {
+        return dataDao.getFilter(data)
+    }
+
+
+    suspend fun getAllFilters() : List<FilterData> {
+        return dataDao.getAllFilters()
+    }
 }

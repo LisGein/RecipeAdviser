@@ -5,7 +5,7 @@ import com.example.recipeadviser.ui.activities.MainActivity
 import com.example.recipeadviser.SerializableIngredients
 import com.example.recipeadviser.SerializableStep
 import com.example.recipeadviser.convertToSerializableIngredients
-import com.example.recipeadviser.localrecipes.essential.RecipeViewModel
+import com.example.recipeadviser.localdatabase.essential.RecipeViewModel
 import com.example.recipeadviser.ui.activities.CurrentRecipeActivity
 
 class SelectItemListener(

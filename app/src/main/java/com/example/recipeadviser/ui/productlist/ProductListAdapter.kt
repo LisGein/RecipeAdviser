@@ -14,9 +14,7 @@ import androidx.lifecycle.LiveData
 import com.example.recipeadviser.R
 import com.example.recipeadviser.SerializableIngredients
 import com.example.recipeadviser.convertToSerializableIngredients
-import com.example.recipeadviser.localrecipes.ingredients.IngredientData
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import com.example.recipeadviser.localdatabase.ingredients.IngredientData
 import kotlinx.coroutines.runBlocking
 
 class ProductListAdapter(i_context: Context, i_ingredients: LiveData<List<IngredientData>>, viewLifecycleOwner: LifecycleOwner, i_productsViewModel: ProductListViewModel) : BaseExpandableListAdapter() {

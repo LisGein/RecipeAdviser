@@ -7,9 +7,14 @@
     <string name="ingredients">Ингредиенты</string>
     <string name="preparing_steps">Шаги</string>
     <string name="action_settings">Настройки</string>
+    <string name="action_food_prefs">Предпочтения по еде</string>
     <string name="login">Log in</string>
     <string name="create_new_account">Create new account</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="language">Язык</string>
+    <string name="diet_type">Тип диеты</string>
+    <string name="low_calorie">Низкокалорийная</string>
+    <string name="vegetarian">Вегетарианская</string>
+    <string name="liver_disease">Стол номер 5</string>
 </resources>

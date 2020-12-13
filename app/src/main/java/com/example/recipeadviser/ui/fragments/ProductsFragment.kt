@@ -8,8 +8,8 @@ import android.widget.ExpandableListView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.recipeadviser.R
-import com.example.recipeadviser.localrecipes.essential.RecipeViewModel
-import com.example.recipeadviser.localrecipes.essential.RecipeViewModelFactory
+import com.example.recipeadviser.localdatabase.essential.RecipeViewModel
+import com.example.recipeadviser.localdatabase.essential.RecipeViewModelFactory
 import com.example.recipeadviser.ui.productlist.ProductListAdapter
 import com.example.recipeadviser.ui.productlist.ProductListViewModel
 import com.example.recipeadviser.ui.productlist.ProductListViewModelFactory

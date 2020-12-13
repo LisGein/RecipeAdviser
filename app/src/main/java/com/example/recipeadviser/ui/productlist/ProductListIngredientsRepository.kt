@@ -1,11 +1,6 @@
 package com.example.recipeadviser.ui.productlist
 
-import androidx.lifecycle.LiveData
-import com.example.recipeadviser.localrecipes.DataDao
-import com.example.recipeadviser.localrecipes.essential.RecipeData
-import com.example.recipeadviser.localrecipes.ingredients.IngredientData
-import com.example.recipeadviser.localrecipes.ingredients.RecipeToIngredientData
-import com.example.recipeadviser.localrecipes.steps.StepsData
+import com.example.recipeadviser.localdatabase.DataDao
 
 class ProductListIngredientsRepository(private val dataDao: DataDao) {
 

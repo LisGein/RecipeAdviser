@@ -2,7 +2,7 @@ package com.example.recipeadviser
 
 import android.os.Parcel
 import android.os.Parcelable
-import com.example.recipeadviser.localrecipes.ingredients.IngredientData
+import com.example.recipeadviser.localdatabase.ingredients.IngredientData
 
 fun convertToSerializableIngredients(ingr: IngredientData) : SerializableIngredients
 {

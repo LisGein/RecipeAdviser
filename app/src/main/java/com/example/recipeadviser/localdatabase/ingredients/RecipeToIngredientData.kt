@@ -1,4 +1,4 @@
-package com.example.recipeadviser.localrecipes.ingredients
+package com.example.recipeadviser.localdatabase.ingredients
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
