@@ -2,7 +2,9 @@ package com.example.recipeadviser.network
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.res.Resources
 import com.example.recipeadviser.R
+import java.util.*
 
 
 class SessionManager(context: Context) {
@@ -34,4 +36,10 @@ class SessionManager(context: Context) {
         return prefs.getString(LANG, "en")
     }
 
+    fun setLocale(localeName: String, res: Resources) {
+        var locale = Locale(localeName)
+        val conf = res.configuration
+        conf.locale = locale
+        res.updateConfiguration(conf, res.displayMetrics)
+    }
 }

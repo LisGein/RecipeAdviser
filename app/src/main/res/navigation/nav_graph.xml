@@ -34,7 +34,7 @@
         android:label="LoginFragment" />
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.recipeadviser.ui.SettingsFragment"
+        android:name="com.example.recipeadviser.ui.fragments.SettingsFragment"
         android:label="SettingsFragment" >
         <action
             android:id="@+id/action_settingsFragment_to_listFragment"

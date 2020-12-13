@@ -1,4 +1,4 @@
-package com.example.recipeadviser.ui
+package com.example.recipeadviser.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -26,8 +26,8 @@ class SettingsFragment : Fragment() {
         spinner?.adapter = adapter
 
         val sessionManager = SessionManager(requireActivity().application.applicationContext)
-        val selectedLang = if (sessionManager.fetchLanguage() == "en")  0  else 1
-        spinner.setSelection(selectedLang)
+        val lang = if (sessionManager.fetchLanguage() == "en")  0  else 1
+        spinner.setSelection(lang)
 
         spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long){
@@ -36,29 +36,18 @@ class SettingsFragment : Fragment() {
                 val s = sessionManager.fetchLanguage()
                 if (s != selectedLang) {
                     sessionManager.saveLanguage(selectedLang)
-                    setLocale(selectedLang)
+                    sessionManager.setLocale(selectedLang, resources)
+                    val refresh = Intent(
+                        requireContext(),
+                        MainActivity::class.java
+                    )
+                    startActivity(refresh)
                 }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>){
             }
         }
-
-
-    }
-    private fun setLocale(localeName: String) {
-            locale = Locale(localeName)
-            val res = resources
-            val dm = res.displayMetrics
-            val conf = res.configuration
-            conf.locale = locale
-            res.updateConfiguration(conf, dm)
-            val refresh = Intent(
-                    requireContext(),
-                    MainActivity::class.java
-            )
-            startActivity(refresh)
-
     }
 
     override fun onCreateView(
