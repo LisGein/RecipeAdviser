@@ -86,10 +86,6 @@ class RecipeRepository(private val dataDao: DataDao) {
         dataDao.deleteAllProductListIngredients()
     }
 
-    suspend fun getProductListIngredientInfo(id: String) : List<ProductListIngredientInfo>{
-        return dataDao.getProductListIngredientInfo(id)
-    }
-
     suspend fun insertNewFilter(data: FilterData) {
         dataDao.insertNewFilter(data)
     }

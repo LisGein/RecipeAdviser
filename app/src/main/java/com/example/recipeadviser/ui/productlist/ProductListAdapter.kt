@@ -29,6 +29,7 @@ class ProductListAdapter(i_context: Context, i_ingredients: LiveData<List<Ingred
     var expandableListTitle = mutableListOf<String>()
     var expandableListDetail = hashMapOf<String, MutableList<SerializableIngredients>>()
 
+    var list = mutableListOf<ProductListIngredientInfo>()
     init{
         ingredients.observe(viewLifecycleOwner, { list ->
             updateData()
@@ -86,19 +87,68 @@ class ProductListAdapter(i_context: Context, i_ingredients: LiveData<List<Ingred
             val layoutInflater = this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             convertView = layoutInflater.inflate(R.layout.product_list_item, null)
         }
-        val expandedListTextView = convertView?.findViewById(R.id.expanded_list_item) as CheckBox
-        expandedListTextView.text = expandedListText
+        val expandedCheckBox = convertView?.findViewById(R.id.expanded_list_item) as CheckBox
+        val textView = convertView.findViewById(R.id.text_expanded_list_item) as TextView
+        textView.text = expandedListText
 
         obj!!.ingredientId?.let {
-            val checked = productsViewModel.find(it)
-            expandedListTextView.setChecked(checked)
+            val _list = productsViewModel.getAll()
+            if (list != _list) {
+                    var name = ""
+                    var n = ""
+                for (l in _list) {
+                    if (l.state)
+                        name += l.name
+                    else
+                        n += l.name
+                }
+                println("let:" + name + " | " + n)
+                list = _list
+            }
+            val list = productsViewModel.find(it, obj.name!!)
+            var checked = false
+            if (!list.isEmpty())
+            {
+                checked = list[0].state
+            }
+            expandedCheckBox.setChecked(checked)
+            if (checked)
+                textView.paintFlags = textView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            else
+                textView.paintFlags = textView.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
         }
 
-        expandedListTextView.setOnCheckedChangeListener { _, isChecked ->
-            expandedListTextView.paintFlags = expandedListTextView.paintFlags xor Paint.STRIKE_THRU_TEXT_FLAG
+        expandedCheckBox.setOnCheckedChangeListener { compoundButton, isChecked ->
 
-            runBlocking {
-            productsViewModel.addCheckedIngredient(ProductListIngredientInfo(obj!!.ingredientId!!, isChecked)) }
+            //if(compoundButton.isPressed()) {
+
+                textView.paintFlags = textView.paintFlags xor Paint.STRIKE_THRU_TEXT_FLAG
+
+                runBlocking {
+                    productsViewModel.addCheckedIngredient(
+                        ProductListIngredientInfo(
+                            obj.ingredientId!!,
+                            obj.name!!,
+                            isChecked
+                        )
+                    )
+                    val _list = productsViewModel.getAll()
+                    if (list != _list) {
+                        var name = ""
+
+                        for (l in _list) {
+                            if (l.state)
+                                name += l.name
+                        }
+                        println("listener:" + name)
+                        list = _list
+                    }
+                }
+           //}
+            //else
+            //if(!compoundButton.isPressed())
+               println(" butt.id -" + compoundButton.id +
+                       " isPre " + compoundButton.isPressed())
         }
 
         return convertView

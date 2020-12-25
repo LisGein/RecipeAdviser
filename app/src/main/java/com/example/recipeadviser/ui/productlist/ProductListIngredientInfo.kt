@@ -5,6 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "product_list_ingredient")
 class ProductListIngredientInfo(@PrimaryKey @ColumnInfo(name = "id") val ingredient_id: String,
+                                @ColumnInfo(name = "name") val name: String,
                                 @ColumnInfo(name = "state") val state: Boolean) {
 }
 

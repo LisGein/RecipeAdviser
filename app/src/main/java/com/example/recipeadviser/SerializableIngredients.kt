@@ -11,7 +11,7 @@ fun convertToSerializableIngredients(ingr: IngredientData) : SerializableIngredi
 }
 fun convertToSerializableIngredients(ingr: UserIngredient) : SerializableIngredients
 {
-    return SerializableIngredients("-", ingr.name, ingr.amount, ingr.measure, ingr.type)
+    return SerializableIngredients(ingr.ingredient_id.toString(), ingr.name, ingr.amount, ingr.measure, ingr.type)
 }
 
 class SerializableIngredients(val ingredientId: String?,

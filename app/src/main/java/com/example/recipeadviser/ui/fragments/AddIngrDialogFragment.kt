@@ -32,7 +32,7 @@ class AddIngrDialogFragment: DialogFragment() {
 
                     val recipeViewModel: RecipeViewModel by activityViewModels{ RecipeViewModelFactory(requireActivity().application) }
 
-                    val data = UserIngredient(ingrNameTextView.text.toString(), measureTextView.text.toString().toDouble(), unitTextView.toString(), typeTextView.text.toString())
+                    val data = UserIngredient(ingrNameTextView.text.toString(), measureTextView.text.toString().toDouble(), unitTextView.text.toString(), typeTextView.text.toString())
 
                     recipeViewModel.viewModelScope.launch {
                         recipeViewModel.insertUserIngredient(data)

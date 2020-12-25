@@ -36,12 +36,21 @@ class ProductListViewModel(application: Application) : AndroidViewModel(applicat
         }
     }
 
-    fun find(id: String): Boolean
+    fun find(id: String, name: String): List<ProductListIngredientInfo>
     {
         return runBlocking {
             //var all = repository.getAll()
 
-            !repository.getProductListIngredientInfo(id).isEmpty()
+            repository.getProductListIngredientInfo(id, name)
+        }
+    }
+
+    fun getAll(): MutableList<ProductListIngredientInfo>
+    {
+        return runBlocking {
+            //var all = repository.getAll()
+
+            repository.getAll()
         }
     }
 }

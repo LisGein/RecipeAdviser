@@ -75,11 +75,11 @@ interface DataDao {
     suspend fun deleteAllRecipeToIngredients()
 
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertProductListIngredient(productListIngredientInfo: ProductListIngredientInfo)
 
     @Query("SELECT * FROM product_list_ingredient ORDER BY id ASC")
-    suspend fun getSortedProductListIngredients(): List<ProductListIngredientInfo>
+    suspend fun getSortedProductListIngredients(): MutableList<ProductListIngredientInfo>
 
     @Query("DELETE FROM product_list_ingredient WHERE id = :id")
     suspend fun removeProductListIngredient(id: String)
@@ -87,8 +87,8 @@ interface DataDao {
     @Query("DELETE FROM product_list_ingredient")
     suspend fun deleteAllProductListIngredients()
 
-    @Query("SELECT * FROM product_list_ingredient WHERE id = :ingrId")
-    suspend fun getProductListIngredientInfo(ingrId: String): List<ProductListIngredientInfo>
+    @Query("SELECT * FROM product_list_ingredient WHERE id = :ingrId and name = :name")
+    suspend fun getProductListIngredientInfo(ingrId: String, name: String): List<ProductListIngredientInfo>
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
