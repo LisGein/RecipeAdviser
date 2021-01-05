@@ -12,7 +12,7 @@ class ProductListIngredientsRepository(private val dataDao: DataDao) {
             if (l.state)
                 name += l.name + " "
         }
-        println(( if (data.state) "ins - " else "rem - ") + data.name!!)
+        println(( if (data.state) "ins - " else "rem - ") + data.name)
         println("list of product set:" + name)
     }
 
