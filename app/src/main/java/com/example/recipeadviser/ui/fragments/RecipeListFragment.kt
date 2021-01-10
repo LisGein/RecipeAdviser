@@ -83,7 +83,7 @@ class RecipeListFragment : Fragment() {
         }
 
         removeItemListener = RemoveItemListener(dataViewModel)
-        selectItemListener = SelectItemListener(dataViewModel, requireActivity() as MainActivity)
+        selectItemListener = SelectItemListener(dataViewModel, navController)
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview)
         recyclerView.layoutManager = LinearLayoutManager(view.context)

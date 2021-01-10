@@ -31,6 +31,7 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
     //   the UI when the data actually changes.
     // - Repository is completely separated from the UI through the ViewModel.
     val allData: LiveData<List<RecipeData>>
+    var currentId: String = ""
 
     private val _response = MutableLiveData<String>()
 
@@ -166,4 +167,16 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
             Toast.makeText(con, _response.value, Toast.LENGTH_SHORT).show()
         }
     }
+
+    fun setCurrentRecipeId(i_recipeId: String)
+    {
+        currentId = i_recipeId
+    }
+
+    fun getCurrentRecipeId(): String
+    {
+        return currentId
+    }
+
+
 }

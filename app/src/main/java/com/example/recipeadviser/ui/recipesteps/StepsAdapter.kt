@@ -7,13 +7,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeadviser.R
-import com.example.recipeadviser.SerializableStep
+import com.example.recipeadviser.localdatabase.steps.StepsData
 import pl.hypeapp.materialtimelineview.MaterialTimelineView
 
-class StepsAdapter(context: Context) : RecyclerView.Adapter<StepsAdapter.StepsViewHolder>() {
+class StepsAdapter(context: Context, private val data : List<StepsData>) : RecyclerView.Adapter<StepsAdapter.StepsViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
-    private var data = arrayListOf<SerializableStep>()  // Cached copy of steps
 
     inner class StepsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val stepDescription: TextView? = itemView.findViewById(R.id.step_description)
@@ -46,11 +45,6 @@ class StepsAdapter(context: Context) : RecyclerView.Adapter<StepsAdapter.StepsVi
         if (viewType == MaterialTimelineView.TIMELINE_TYPE_ITEM) {
             holder.stepDescription?.text = current.description
         }
-    }
-
-    fun setSteps(data: ArrayList<SerializableStep>) {
-        this.data = data
-        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {
