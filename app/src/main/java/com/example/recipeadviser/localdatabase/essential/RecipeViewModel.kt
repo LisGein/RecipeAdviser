@@ -10,6 +10,7 @@ import com.example.recipeadviser.localdatabase.ingredients.IngredientData
 import com.example.recipeadviser.localdatabase.ingredients.RecipeToIngredientData
 import com.example.recipeadviser.localdatabase.ingredients.UserIngredient
 import com.example.recipeadviser.localdatabase.steps.StepsData
+import com.example.recipeadviser.localdatabase.steps.TimerData
 import com.example.recipeadviser.network.ApiClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -150,11 +151,17 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
                     )
                 }
                 for (recipe in listResult.step) {
+                    var t : TimerData? = null
+                    if (recipe.timer!= null)
+                        t = TimerData(
+                        recipe.timer.message,
+                        recipe.timer.duration)
                     repository.insertStep(
                         StepsData(
                             recipe.number,
                             recipe.recipeId,
-                            recipe.description
+                            recipe.description,
+                            t
                         )
                     )
                 }

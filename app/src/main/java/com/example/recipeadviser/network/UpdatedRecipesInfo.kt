@@ -1,5 +1,6 @@
 package com.example.recipeadviser.network
 
+import androidx.annotation.Nullable
 import com.squareup.moshi.Json
 
 data class UpdatedRecipesInfo(
@@ -28,8 +29,14 @@ data class UpdatedIngredient(
         val type: String
 )
 
+data class UpdatedTimer(
+        val message: String,
+        val duration: Long
+)
+
 data class UpdatedStep(
-    @Json(name = "recipe_id") val recipeId: String,
-    val number: Int,
-    val description: String
+        @Json(name = "recipe_id") val recipeId: String,
+        val number: Int,
+        val description: String,
+        val timer: UpdatedTimer?
 )

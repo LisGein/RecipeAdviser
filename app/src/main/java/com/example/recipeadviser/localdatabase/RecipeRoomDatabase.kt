@@ -10,12 +10,13 @@ import com.example.recipeadviser.localdatabase.ingredients.IngredientData
 import com.example.recipeadviser.localdatabase.ingredients.RecipeToIngredientData
 import com.example.recipeadviser.localdatabase.ingredients.UserIngredient
 import com.example.recipeadviser.localdatabase.steps.StepsData
+import com.example.recipeadviser.localdatabase.steps.TimerData
 import com.example.recipeadviser.ui.productlist.ProductListIngredientInfo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @Database(entities = arrayOf(FilterData::class, UserIngredient::class, IngredientData::class, RecipeToIngredientData::class,
-    RecipeData::class, StepsData::class, ProductListIngredientInfo::class ), version = 1, exportSchema = false)
+    RecipeData::class, StepsData::class, ProductListIngredientInfo::class, TimerData::class ), version = 1, exportSchema = false)
 abstract class RecipeRoomDatabase : RoomDatabase() {
 
     abstract fun recipeDataDao(): DataDao
@@ -35,8 +36,8 @@ abstract class RecipeRoomDatabase : RoomDatabase() {
 
                     var recipe = RecipeData("0", "Chicken")
                     dao.insertRecipe(recipe)
-                    dao.insertStep(StepsData(1,"0", "step 1"))
-                    dao.insertStep(StepsData(2, "0","step 2"))
+                    dao.insertStep(StepsData(1,"0", "step 1", TimerData("", 3536747)))
+                    dao.insertStep(StepsData(2, "0","step 2", TimerData("", 0)))
 
                     recipe = RecipeData("1", "Bowl")
                     dao.insertRecipe(recipe)
