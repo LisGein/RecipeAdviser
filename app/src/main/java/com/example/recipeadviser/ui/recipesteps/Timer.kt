@@ -2,11 +2,13 @@ package com.example.recipeadviser.ui.recipesteps
 
 import android.os.CountDownTimer
 import android.widget.TextView
+import androidx.fragment.app.FragmentManager
 import com.example.recipeadviser.localdatabase.steps.TimerData
+import com.example.recipeadviser.ui.fragments.TimerMessageDialog
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-class Timer(private var timeLeft: TextView?) {
+class Timer(private var timeLeft: TextView?, private val fm: FragmentManager) {
     enum class TimerState{
         Paused, Running
     }
@@ -17,10 +19,13 @@ class Timer(private var timeLeft: TextView?) {
     private var msRemaining: Long = timerLength
     private lateinit var timer: CountDownTimer
 
+    var message: String = ""
+
     fun initTimer(timerData: TimerData) {
         if (timerLength != timerData.duration) {
             timerLength = timerData.duration
             msRemaining = timerLength
+            message = timerData.message
         }
         updateCountdownUI()
     }
@@ -58,6 +63,7 @@ class Timer(private var timeLeft: TextView?) {
 
     fun onTimerFinished() {
         timerState = TimerState.Paused
+        TimerMessageDialog(message).show(fm, TimerMessageDialog.TAG)
     }
 
     fun pause() {

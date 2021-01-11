@@ -29,7 +29,7 @@ class CurrentSteps: Fragment() {
 
         val stepsRecyclerView = view.findViewById<RecyclerView>(R.id.recyclerview_steps)
         stepsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        val stepsAdapter = StepsAdapter(requireContext(), dataViewModel.getSteps(dataViewModel.getCurrentRecipeId()))
+        val stepsAdapter = StepsAdapter(requireContext(), dataViewModel.getSteps(dataViewModel.getCurrentRecipeId()), childFragmentManager)
         stepsRecyclerView.adapter = stepsAdapter
     }
 

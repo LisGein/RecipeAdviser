@@ -7,13 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeadviser.R
 import com.example.recipeadviser.localdatabase.steps.StepsData
 import pl.hypeapp.materialtimelineview.MaterialTimelineView
 
 
-class StepsAdapter(private val context: Context, private val data: List<StepsData>) : RecyclerView.Adapter<StepsAdapter.StepsViewHolder>() {
+class StepsAdapter(private val context: Context, private val data: List<StepsData>, private val fm: FragmentManager) : RecyclerView.Adapter<StepsAdapter.StepsViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
 
@@ -23,7 +24,7 @@ class StepsAdapter(private val context: Context, private val data: List<StepsDat
         val startTimer: ImageButton? = itemView.findViewById(R.id.start_timer)
         val restartTimer: ImageButton? = itemView.findViewById(R.id.restart_timer)
         val timeLeft: TextView? = itemView.findViewById(R.id.time_left)
-        val timer = Timer(timeLeft)
+        val timer = Timer(timeLeft, fm)
 
         init {
             startTimer?.setVisibility(View.VISIBLE)
